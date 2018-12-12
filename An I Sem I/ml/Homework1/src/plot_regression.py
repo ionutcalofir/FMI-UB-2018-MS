@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA, TruncatedSVD
 
 from plot import Plot
 from predicting.regressor_pred import RegressorPred
@@ -42,11 +43,13 @@ class PlotRegression(Plot):
         y_true = model._y_train
         cls = model._y_train_cls
 
-        tsne = TSNE()
-        X_t = tsne.fit_transform(X)
+        # tsne = TSNE()
+        # X_t = tsne.fit_transform(X)
+        pca = PCA(n_components=2)
+        X_t = pca.fit_transform(X)
 
         fig = plt.figure('Regression')
-        fig.suptitle('Longevity with TSNE')
+        fig.suptitle('Longevity with PCA')
         ax1 = fig.add_subplot(1, 2, 1, projection='3d')
         ax2 = fig.add_subplot(1, 2, 2, projection='3d')
         ax1.scatter(X_t[:, 0], X_t[:, 1], y_pred, marker='o', c=cls)

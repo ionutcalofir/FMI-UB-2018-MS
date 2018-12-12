@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA, TruncatedSVD
 
 from plot import Plot
 from predicting.classifier_pred import ClassifierPred
@@ -52,11 +53,13 @@ class PlotClassification(Plot):
         y_pred = model.predict_train()
         y_true = model._y_train
 
-        tsne = TSNE()
-        X_t = tsne.fit_transform(X)
+        # tsne = TSNE()
+        # X_t = tsne.fit_transform(X)
+        pca = PCA(n_components=2)
+        X_t = pca.fit_transform(X)
 
         fig = plt.figure('Classification')
-        fig.suptitle('Classes with TSNE')
+        fig.suptitle('Classes with PCA')
         ax = fig.subplots(1, 2).flatten()
         ax[0].scatter(X_t[:, 0], X_t[:, 1], marker='o', c=y_pred)
         ax[1].scatter(X_t[:, 0], X_t[:, 1], marker='o', c=y_true)
