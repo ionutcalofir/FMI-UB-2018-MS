@@ -1,0 +1,18 @@
+['Natural', 'language', 'processing', '(', 'NLP', ')', 'is', 'a', 'subfield', 'of', 'computer', 'science', ',', 'information', 'engineering', ',', 'and', 'artificial', 'intelligence', 'concerned', 'with', 'the', 'interactions', 'between', 'computers', 'and', 'human', '(', 'natural', ')', 'languages', ',', 'in', 'particular', 'how', 'to', 'program', 'computers', 'to', 'process', 'and', 'analyze', 'large', 'amounts', 'of', 'natural', 'language', 'data', '.', 'Challenges', 'in', 'natural', 'language', 'processing', 'frequently', 'involve', 'speech', 'recognition', ',', 'natural', 'language', 'understanding', ',', 'and', 'natural', 'language', 'generation', '.']
+
+Numarul de propozitii este 2
+
+Natural language processing (NLP) is a subfield of computer science, information engineering, and artificial intelligence concerned with the interactions between computers and human (natural) languages, in particular how to program computers to process and analyze large amounts of natural language data.
+Numarul de cuvinte 49
+Numarul de stopwords 14
+Natural language processing ( NLP ) subfield computer science , information engineering , artificial intelligence concerned interactions computers human ( natural ) languages , particular program computers process analyze large amounts natural language data . 
+[('Natural', 'JJ'), ('language', 'NN'), ('processing', 'NN'), ('(', 'FW'), ('NLP', 'FW'), (')', 'FW'), ('is', 'VBZ'), ('a', 'DT'), ('subfield', 'NN'), ('of', 'IN'), ('computer', 'NN'), ('science', 'NN'), (',', ','), ('information', 'NN'), ('engineering', 'NN'), (',', ','), ('and', 'CC'), ('artificial', 'JJ'), ('intelligence', 'NN'), ('concerned', 'VBN'), ('with', 'IN'), ('the', 'DT'), ('interactions', 'NNS'), ('between', 'IN'), ('computers', 'NNS'), ('and', 'CC'), ('human', 'JJ'), ('(', 'NN'), ('natural', 'JJ'), (')', 'NN'), ('languages', 'NNS'), (',', ','), ('in', 'IN'), ('particular', 'JJ'), ('how', 'WRB'), ('to', 'TO'), ('program', 'VB'), ('computers', 'NNS'), ('to', 'TO'), ('process', 'VB'), ('and', 'CC'), ('analyze', 'VB'), ('large', 'JJ'), ('amounts', 'NNS'), ('of', 'IN'), ('natural', 'JJ'), ('language', 'NN'), ('data', 'NNS'), ('.', '.')]
+0.2857142857142857
+
+Challenges in natural language processing frequently involve speech recognition, natural language understanding, and natural language generation.
+Numarul de cuvinte 19
+Numarul de stopwords 2
+Challenges natural language processing frequently involve speech recognition , natural language understanding , natural language generation . 
+[('Challenges', 'NNS'), ('in', 'IN'), ('natural', 'JJ'), ('language', 'NN'), ('processing', 'NN'), ('frequently', 'RB'), ('involve', 'VBP'), ('speech', 'NN'), ('recognition', 'NN'), (',', ','), ('natural', 'JJ'), ('language', 'NN'), ('understanding', 'NN'), (',', ','), ('and', 'CC'), ('natural', 'JJ'), ('language', 'NN'), ('generation', 'NN'), ('.', '.')]
+0.42105263157894735
+
