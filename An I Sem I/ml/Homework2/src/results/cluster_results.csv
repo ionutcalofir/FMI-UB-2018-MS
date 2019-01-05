@@ -1,0 +1,27 @@
+name,eps,eps_val,n_clusters,init,silhouette
+KMeans,,,3,k-means++,0.018500726861797667
+KMeans,,,3,random,0.012260204692180199
+KMeans,,,4,k-means++,0.022247339306338428
+KMeans,,,4,random,0.01357426655617717
+KMeans,,,5,k-means++,-0.001464423501119103
+KMeans,,,5,random,0.028063842467013437
+KMeans,,,6,k-means++,0.023887226790590278
+KMeans,,,6,random,-0.021161870443606127
+KMeans,,,10,k-means++,0.03968055806523489
+KMeans,,,10,random,0.019491476569245554
+KMeans,,,20,k-means++,0.04588374405765573
+KMeans,,,20,random,0.030928633048638212
+KMeans,,,25,k-means++,0.06216759501474392
+KMeans,,,25,random,0.01631080203967441
+AgglomerativeClustering,,,3,,0.026854904869584296
+AgglomerativeClustering,,,4,,0.030520878333516067
+AgglomerativeClustering,,,5,,0.04537594637074289
+AgglomerativeClustering,,,6,,0.036047830659904204
+AgglomerativeClustering,,,10,,0.01329914968252083
+AgglomerativeClustering,,,20,,0.052892441938583855
+AgglomerativeClustering,,,25,,0.06199962987203641
+DBSCAN,0.7,"{-1: 198, 0: 202}",,,
+DBSCAN,0.8,"{-1: 163, 0: 232, 1: 5}",,,
+DBSCAN,0.9,"{-1: 95, 0: 305}",,,
+DBSCAN,1,"{-1: 39, 0: 361}",,,
+DBSCAN,1.1,"{-1: 5, 0: 395}",,,
