@@ -1,0 +1,4 @@
+cube(a, 10, heap).
+cube(b, 20, heap).
+cube(c, 30, heap).
+counter(1).
