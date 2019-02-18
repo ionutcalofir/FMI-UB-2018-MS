@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ro"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="Laboratoare%20procesarea%20limbajului%20natural%20-%202,%20Introducere%20in%20Python_files/stil.css">
+    <link rel="shortcut icon" type="image/x-icon" href="http://irinaciocan.ro/proces_lbnat/favicon.ico">
+	<!--<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />-->
+	<meta charset="UTF-8">
+	<meta name="author" content="Irina Ciocan">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%202,%20Introducere%20in%20Python_files/jquery-3.js"></script>          
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%202,%20Introducere%20in%20Python_files/modernizr-custom.js"></script> 
+	<!--[if lt IE 9]>	
+		<script type="text/javascript" src="/biblioteca/html5shiv.js"></script>
+	<![endif]-->
+		<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%202,%20Introducere%20in%20Python_files/functiile_mele.js"></script>
+	
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%202,%20Introducere%20in%20Python_files/cuprins.js"></script>
+
+
+<title>Laboratoare procesarea limbajului natural - 2, Introducere in Python</title>
+
+ 
+<script type="text/javascript">
+<!--
+
+
+//pentru cookie-uri
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+  {
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+
+
+
+function st_pag_menu()
+{
+var url_pag=document.URL;
+var ind_menu_pag=url_pag.lastIndexOf("/");// http://irinaciocan.ro... => index 19
+var menu_pag=url_pag.substr(ind_menu_pag+1,url_pag.length-ind_menu_pag-5);//5=.html
+//alert(menu_pag);
+var opt_meniu=document.getElementById(menu_pag);
+if(opt_meniu)
+	opt_meniu.style.color="black";
+}
+
+
+function pozitioneazaMeniu(offset) 
+		{
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var margine_sus=$("header.principal").outerHeight();
+			if ($window.scrollTop() > margine_sus) 
+			//if ($sidebar.scrollTop() > 0) 
+			{
+					//$sidebar.css("top", $window.scrollTop()); //- offset.top);
+					$sidebar.css("position","fixed");
+					$sidebar.css("top","0px");
+				
+			} 
+			else 
+			{
+					$sidebar.css("position","absolute");
+					$sidebar.css("top",margine_sus+"px");
+
+			}
+		}
+
+
+
+
+$(document).ready(
+	function()
+	{
+			//pozitioneazaMeniu();
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var offset_meniu = $sidebar.offset();
+			$(window).scroll(function(){
+				pozitioneazaMeniu(offset_meniu);
+			});	
+			$(".opt_meniu").attr("dataDeschis","inchis");
+			$(".opt_meniu").append("<img class='acces_submeniu' src='/imagini/triunghi_alb_mic_b_jos.png' alt=''>");
+			$(".opt_meniu").click(
+				function()
+				{
+					
+					//$plusulet=$(this).find("span.acces_submeniu");
+					//if($(".opt_meniu").attr("dataDeschis")=="inchis")
+					if($(this).attr("dataDeschis")=="inchis")
+					{
+						//$plusulet.text("-");
+						$elem_curent=$(this);
+						//$plusulet.text("+");
+						$(".opt_meniu").each(
+							function() {
+								if($(this)!=$elem_curent)
+								{
+									$(this).attr("dataDeschis","inchis");
+									$submeniu=$(this).next("ul");
+									$submeniu.css("display","none");
+									$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+								}
+							}
+						);
+						$(this).attr("dataDeschis","deschis");		
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","block");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_sus.png');
+					}
+					else
+					{
+
+
+						$(this).attr("dataDeschis","inchis");
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","none");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+
+					}
+
+				}
+			);
+	}
+);
+
+//daca ecranul e mai lat, expandeaza divurile in latime
+
+
+//-->
+</script>
+
+</head>
+<body onload="initial()">
+	<header class="principal">
+		<h1>Procesarea limbajului natural</h1>
+		<div id="nume_login">
+			<p class="alerta">Esti logat drept ionutcalofir</p><a class="link_login" href="http://irinaciocan.ro/proces_lbnat/logout.php">Iesi din cont</a><br>		</div>
+		<nav id="meniu_sus">
+			<ul class="meniu_principal">
+
+
+				<li>
+					<a id="index" href="http://irinaciocan.ro/proces_lbnat/index.php">Principal</a>
+				</li>
+				<li>
+					<a id="inregistrare" href="http://irinaciocan.ro/proces_lbnat/inregistrare.php">Profil</a>
+				</li>
+				<!--
+				<li>
+					<a style="color:red;" id="regulament" href="/proces_lbnat/regulament.php">Proiect HTML+CSS</a>
+					<button class="opt_meniu optiune_importanta" id="proiect_html">Proiect HTML+CSS</button>
+					<ul>
+						<li><a id="barem_proiect" href="/proces_lbnat/barem_proiect.php">Barem proiect</a></li>
+						<li><a id="proiect" href="/proces_lbnat/proiect.php">Realizare proiect</a></li>
+					</ul>
+				</li>
+				-->
+				<!--
+				<li>
+					<a id="barem_proiect" class="optiune_importanta" href="/proces_lbnat/barem_proiect.php">Barem proiect</a>
+				</li>
+				-->
+				<li>
+					<button class="opt_meniu" id="laboratoare" datadeschis="inchis">Laboratoare<img class="acces_submeniu" src="Laboratoare%20procesarea%20limbajului%20natural%20-%202,%20Introducere%20in%20Python_files/triunghi_alb_mic_b_jos.png" alt=""></button>
+					<ul>
+						<!--<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>-->
+						<li><a id="lab1" href="http://irinaciocan.ro/proces_lbnat/lab1.php">Laborator 1<br></a></li>
+						<li><a id="lab2" href="http://irinaciocan.ro/proces_lbnat/lab2.php" style="color: black;">Laborator 2<br></a></li>
+						
+						<li><a id="lab3" href="http://irinaciocan.ro/proces_lbnat/lab3.php">Laborator 3<br></a></li>
+						<li><a id="lab4" href="http://irinaciocan.ro/proces_lbnat/lab4.php">Laborator 4<br></a></li>
+						
+						<li><a id="lab5" href="http://irinaciocan.ro/proces_lbnat/lab5.php">Laborator 5<br></a></li>
+						
+						
+						<li><a id="lab6" href="http://irinaciocan.ro/proces_lbnat/lab6.php">Laborator 6<br></a></li>
+						<!--
+						<li><a id="lab7" href="/proces_lbnat/lab7.php">Laborator 7<br></a></li>
+						<li><a id="lab8" href="/proces_lbnat/lab8.php">Laborator 8<br></a></li>
+						<li><a id="lab9" href="/proces_lbnat/lab9.php">Laborator 9<br></a></li>
+						<li><a id="lab10" href="/proces_lbnat/lab10.php">Laborator 10<br></a></li>
+						<li><a id="lab11" href="/proces_lbnat/lab11.php">Laborator 11<br></a></li>
+						<li><a id="lab12" href="/proces_lbnat/lab12.php">Laborator 12<br></a></li>
+						-->
+					</ul>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">M.I.</button>
+					<ul>
+						<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>
+						<li><a id="mi_lab1" href="/proces_lbnat/mi_lab1.php">M.I. 1<br></a></li>
+						<li><a id="mi_lab2" href="/proces_lbnat/mi_lab2.php">M.I. 2<br></a></li>
+						<li><a id="mi_lab3" href="/proces_lbnat/mi_lab3.php">M.I. 3<br></a></li>
+						<li><a id="mi_lab4" href="/proces_lbnat/mi_lab4.php">M.I. 4<br></a></li>
+						<li><a id="mi_lab5" href="/proces_lbnat/mi_lab5.php">M.I. 5<br></a></li>
+						<li><a id="mi_lab6" href="/proces_lbnat/mi_lab6.php">M.I. 6<br></a></li>
+						<li><a id="mi_lab7" href="/proces_lbnat/mi_lab7.php">M.I. 7<br></a></li>
+						<li><a id="mi_lab8" href="/proces_lbnat/mi_lab8.php">M.I. 8<br></a></li>
+						<li><a id="mi_lab9" href="/proces_lbnat/mi_lab9.php">M.I. 9<br></a></li>
+						<li><a id="mi_lab10" href="/proces_lbnat/mi_lab10.php">M.I. 10<br></a></li>
+						<li><a id="mi_lab11" href="/proces_lbnat/mi_lab11.php">M.I. 11<br></a></li>
+						<li><a id="mi_lab12" href="/proces_lbnat/mi_lab12.php">M.I. 12<br></a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">M.I. mai simplu<br></a></li>
+						<li><a id="exercitii_recapitulative" href="/proces_lbnat/exercitii_recapitulative.php">M.I.recapitulativ<br></a></li>
+					</ul>
+				</li>
+-->
+				<li>
+					<a href="#">Note</a>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">Proiect JS</button>
+					<ul>
+
+						<li><a id="barem_proiect_js" href="/proces_lbnat/barem_proiect_js.php">Barem proiect JS<br></a></li>
+						<li><a id="teme_proiect_js" href="/proces_lbnat/teme_proiect_js.php">Teme proiect JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="mi">Test JS</button>
+					<ul>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Pregatire test JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="anexe">Anexe</button>
+					<ul>
+					<li>
+							<a id="model_test_css" href="/proces_lbnat/model_test_css.php">Model test CSS</a>
+					</li>
+					<!--
+						<li><a id="backup" href="/biblioteca/backup.php?folder=proces_lbnat">Backup<br></a></li>
+						<li><a id="debug" href="/proces_lbnat/debug.php">Debug<br></a></li>
+						<li>
+							<a id="exemplu_tema" href="/proces_lbnat/exemplu_tema.php">Exemplu tema</a>
+						</li>
+						<li>
+							<a id="modele_test_prolog" href="/proces_lbnat/modele_test_prolog.php">Model test 1</a>
+						</li>
+						<li>
+							<a id="modele_test_algoritmi" href="/proces_lbnat/modele_test_algoritmi.php">Model test 2</a>
+						</li>
+						<li>
+							<a id="interfata_grafica" href="/proces_lbnat/interfata_grafica.php">Interfata</a>
+						</li>
+						
+					</ul>
+					
+				</li>
+				
+				<li>
+					<button class="opt_meniu" id="proiecte">Proiecte si exercitii</button>
+					<ul>
+						<li><a id="proiecte" href="/proces_lbnat/proiecte.php">Proiecte JS</a></li>
+						<li><a id="exercitii_simple" href="/proces_lbnat/exercitii_simple.php">Exercitii simple</a></li>
+						<li><a id="exercitii_pregatire_examen" href="/proces_lbnat/exercitii_pregatire_examen.php">Exercitii-proiect</a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">Exercitii f. simple</a></li>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Test JS</a>
+						</li>
+					</ul>
+				</li>
+				-->	<!--
+
+	<li class="meniu_bord"><a id="seminar1" href="seminar1.php">Seminar 1</a></li>
+
+	<li  class="meniu_bord"><a id="bibliografie" href="bibliografie.php" style="color:red" title="pentru proiect!">Bibliografie</a></li>
+	<li><a id="exemplu_tema" href="exemplu_tema.php">Regulament teme</a></li>
+	<hr style="margin:0; padding:0; border:0; height:1px; color:grey; background-color:grey;"/>
+	<br/>-->
+
+			</ul>
+		</nav>
+	</header>
+<main>
+<h2>Laboratorul 2</h2>
+<h5 class="def" title="A trecut deadline-ul">(Deadline: 26.11.2018 23:59:59)</h5>
+<p style="font-style:italic;color:grey;">Daca nu sunteti logati exercitiile nu se mai afiseaza.</p><section>
+	<h3>Functii - aprofundare</h3>
+	<section>
+		<h4>Valori default pentru parametri</h4>
+		<p>
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">	
+				def f(x=1,y=2,z=3):<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;return x+y+z<br>
+				<br>
+				print(f())<br>
+				print(f(100))<br>
+				print(f(100, 100))<br>
+				print(f(100, 100, 100))
+			</code>
+			Va afisa:
+			<samp class="output">
+				6<br>
+				105<br>
+				203<br>
+				300
+			</samp>
+		</p>
+	</section>
+	<section>
+		<h4>Apel cu numele parametrilor</h4>
+		<p>
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">	
+				def f(x=1,y=2,z=3):<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;return x+y+z<br>
+				<br>
+				print(f(y=100))<br>
+				print(f(z=100, x=100))
+			</code>
+			Va afisa:
+			<samp class="output">
+				104<br>
+				202
+			</samp>
+		</p>
+	</section>
+	<section>
+		<h4>Functii cu numar variabil de argumente</h4>
+		<p>
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">	
+				def inmultire(*args):<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;r=1<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;for x in args:<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r*=x<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;return r<br>
+				<br>
+				print(inmultire(2,3,1,5,10))<br>
+			</code>
+			Va afisa:
+			<samp class="output">
+				300
+			</samp>
+		</p>
+		<p>
+			Daca avevm o functie definita cu numar variabil de argumente si 
+totusi argumentele pe care vrem sa le transmitem sunt intr-o lista, de 
+exemplu lst=[2,3,1,5,10] vom apela functia cu *lst in locul enumerarii 
+argumentelor. Deci pentru functia de mai sus, am apela inmultire(*lst).
+		</p>
+	</section>
+</section>
+<section>
+	<h3>Argumentele programului</h3>
+	<p>Uneori dorim sa apelam programul cu anumite argumente. In acest caz scriem in linia de comanda ceva de genul:
+	<samp class="output">
+	python programel.py arg1 arg2 arg3 ......
+	</samp></p>
+	<p>Pentru a accesa argumentele trebuie sa importam modulul sys:
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+	import sys
+	</code>
+	si apoi iteram prin lista <i>sys.argv</i>. Atentie, primul argument este numele programului.
+	</p>
+</section>
+<section>
+	<h3>Instructiunea vida</h3>
+	<p>Instructiunea vida este instructiunea <code>pass</code>. Aceasta nu face nimic si adesea e folosita pe post de <i>placeholder</i>. De exemplu, pentru o functie pe care dorim sa o declaram ca sa nu uitam de ea dar inca nu dorim sa o definim am putea scrie:
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+	def f():<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;pass
+	</code>
+</p></section>
+<section>
+	<h3>Multimi</h3>
+	<p>Multimile sunt colectii in care elementele sunt distincte. 
+Elementele se enumera intre acolade. Multimile pot fi definite si cu 
+ajutorul constructorului <code>set()</code>, dandu-se ca parametrul o lista de elemente</p>
+	<p>Multimea vida nu se poate defini doar prin acolade fara continut, 
+fiindca este simbolul dictionarului vid. Asadar, pentru multime vida 
+folosim constructorul fara parametri:
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		m=set()
+		</code>
+		E corect dar nu e indicat (deoarece avem versiunea mai scurta, fara parametri) sa scriem si asa:
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		m=set([])
+		</code>
+	</p>
+	<p>Putem itera prin multimi astfel:
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			for elem in {1,2,3,4} :<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;print(elem, end=' ')<br>
+		</code>
+		Va afisa:
+		<samp class="output">
+		1 2 3 4 
+		</samp>
+	</p>
+	<p>Multimile pot contine elemente de tipuri diferite. O multime poate contine doar elemente <i lang="en">immutable</i>
+ (de exemplu o multime poate contine un sir sau tuplu, insa nu poate 
+contine o lista, un dictionar sau chiar altv multime). Mai jos aevti un 
+exemplu cu o multime cu elementele enumerate:
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		m={2,1,"x",(1,2),2.3}
+		</code>
+		sau
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		m=set([2,1,"x",(1,2),2.3])
+		</code>	
+
+		<samp class="cod">
+		&gt;&gt;&gt; m=set([1,2,1,2,2])<br>
+		&gt;&gt;&gt; m<br>
+		{1, 2}
+		</samp>
+
+	</p>
+	<section>
+		<h4>Operatii pe multimi</h4>
+		<p>Consideram multimile:
+		<samp class="output">
+			m1={1,3,5,8,9}<br>
+			m2={2,3,7,8}
+		</samp>
+		</p>
+		<section>
+			<h5>Reuniune</h5>
+			<samp class="output">
+			&gt;&gt;&gt; reuniune = m1 | m2<br>
+			&gt;&gt;&gt; reuniune<br>
+			{1, 2, 3, 5, 7, 8, 9}
+			</samp>
+		</section>
+		<section>
+			<h5>Intersectie</h5>
+			<samp class="output">
+				&gt;&gt;&gt; intersectie = m1 &amp; m2<br>
+				&gt;&gt;&gt; intersectie<br>
+				{8, 3}
+			</samp>
+		</section>
+		<section>
+			<h5>Diferenta</h5>
+			<samp class="output">
+				&gt;&gt;&gt; diferenta = m1 - m2<br>
+				&gt;&gt;&gt; diferenta<br>
+				{9, 5, 1}
+			</samp>
+		</section>
+		<section>
+			<h5>Diferenta simetrica</h5>
+			<samp class="output">
+				&gt;&gt;&gt; diferenta_simetrica = m1 ^ m2<br>
+				&gt;&gt;&gt; diferenta_simetrica<br>
+				{1, 2, 5, 7, 9}
+			</samp>
+		</section>
+	</section>
+	<section>
+		<h4>Teste pe multimi</h4>		
+		<p>Consideram multimile:
+		<samp class="output">
+			m2={2,3,7,8}<br>
+			m3={2,3}
+		</samp>
+		</p>
+		<section>
+			<h5>Apartenenta</h5>
+			<samp class="output">
+				&gt;&gt;&gt; 2 in m3<br>
+				True<br>
+				&gt;&gt;&gt; 2 not in m3<br>
+				False
+			</samp>
+		</section>
+		<section>
+			<h5>Incluziune</h5>
+			<samp class="output">
+				&gt;&gt;&gt; <br>
+				&gt;&gt;&gt; m3&lt;m2<br>
+				True<br>
+				&gt;&gt;&gt; m3&lt;=m2<br>
+				True<br>
+				&gt;&gt;&gt; m2&gt;=m2<br>
+				True
+			</samp>
+		</section>
+	</section>
+	<section>
+		<h4>Metode specifice</h4>
+		<p>Consideram multimea:
+		<samp class="output">
+			m3={2,3}
+		</samp>
+		</p><section>
+			<h5>Cardinalul (functia len())</h5>
+			<samp class="output">
+				&gt;&gt;&gt; len(m3)<br>
+				2
+			</samp>
+		</section>
+		<section>
+			<h5>Adaugare si stergere de elemente</h5>
+			<p>Putem adauga un element cu metoda add() si sa stergem elementul cu
+ discard() sau remove(). Diferenta intre discard si remove este ca 
+remove arunca o exceptie daca elementul dat ca parametru nu exista
+			<samp class="output">
+				&gt;&gt;&gt; m3.add(10)<br>
+				&gt;&gt;&gt; m3<br>
+				{10, 2, 3}<br>
+				&gt;&gt;&gt; m3.discard(10)<br>
+				&gt;&gt;&gt; m3<br>
+				{2, 3}
+			</samp>
+			</p><p>Putem sterge si un element arbitrar din multime cu ajutorul metodei pop():
+			<samp class="output">
+				&gt;&gt;&gt; m={1,2,3,4,5}<br>
+				&gt;&gt;&gt; m.pop()<br>
+				1<br>
+				&gt;&gt;&gt; m<br>
+				{2, 3, 4, 5}
+			</samp>
+			</p>
+		</section>
+		<section>
+			<h5>Vidarea multimii (clear())</h5>
+			<samp class="output">
+				&gt;&gt;&gt; m3.clear()<br>
+				&gt;&gt;&gt; m3<br>
+				set()
+			</samp>
+
+		</section>
+	</section>
+</section>
+<section>
+	<h3>Multimi <i>immutable</i> (frozenset)</h3>
+	<p>Aceste multimi nu se pot modifica (nu putem adauga sau sterge 
+elemente). Asadar pot fi elemente in alte multimi (immutable sau nu).
+	<samp class="output">
+		&gt;&gt;&gt; m=frozenset(["Elsa","Anna","Olaf","Kristoff","Hans"])<br>
+		&gt;&gt;&gt; m<br>
+		frozenset({'Olaf', 'Elsa', 'Hans', 'Anna', 'Kristoff'})<br>
+		&gt;&gt;&gt; mnr=frozenset([1,2,3])<br>
+		&gt;&gt;&gt; mm={m,mnr}<br>
+		&gt;&gt;&gt; mm<br>
+		{frozenset({'Olaf', 'Elsa', 'Hans', 'Anna', 'Kristoff'}), frozenset({1, 2, 3})}
+	</samp>
+	</p>
+</section>
+<section>
+	<h3>Cateva functii utile</h3>
+	Mai jos sunt enumerate cateva functii predefinite utile:
+	<section>
+		<h3>Functia any()</h3>
+		<p>Functia any() primeste ca parametru o colectie (iterabila) si 
+returneaza True daca cel putin un element are valoarea True (sau poate 
+fi convertit implicit la True). In caz contrar, returneaza False. Pentru
+ o colectie vida va returna False.
+			<samp class="output">
+				&gt;&gt;&gt; any({1,2,3,0})<br>
+				True<br>
+				&gt;&gt;&gt; any([0,0,0])<br>
+				False<br>
+				&gt;&gt;&gt; any([])<br>
+				False
+			</samp>
+		</p>
+	</section>
+	<section>
+		<h3>Functia all()</h3>
+		<p>Functia all() primeste ca parametru o colectie (iterabila) si returneaza True daca <strong>toate</strong>
+ elementele au valoarea True (sau pot fi convertite implicit la True). 
+In caz contrar, returneaza False. Pentru o colectie vida va returna 
+True.
+			<samp class="output">
+				&gt;&gt;&gt; all({1,2,3,0})<br>
+				False<br>
+				&gt;&gt;&gt; all({1,2,3})<br>
+				True<br>
+				&gt;&gt;&gt; all([0,0,0])<br>
+				False<br>
+				&gt;&gt;&gt; all([])<br>
+				True
+			</samp>
+		</p>		
+	</section>
+	<section>
+		<h3>Functiile ord() si chr()</h3>
+		<p>Functia ord primeste un caracter si returneaza codul ascii al 
+acestuia. Functia chr primeste codul ascii si returneaza caracterul (sir
+ de lungime 1) corespunzator.
+			<samp class="output">
+				&gt;&gt;&gt; ord("a")<br>
+				97<br>
+				&gt;&gt;&gt; chr(97)<br>
+				'a'
+			</samp>
+		</p>		
+	</section>
+	<section>
+		<h3>Functia zip()</h3>
+		<p>Functia zip primeste ca parametru una sau mai multe colectii si 
+returneaza un iterator. Elemente iterabile rezultate sunt tupluri cu 
+proprietatea ca tuplul de pe pozitia i contine elementele de pe pozitia i
+ din colectiile date ca argumente (ordinea din tuplu e data de ordinea 
+in care au fost transmise colectiile ca argumente).
+			<samp class="output">
+			&gt;&gt;&gt; l1=["a","b","c"]<br>
+			&gt;&gt;&gt; zl1=zip(l1)<br>
+			&gt;&gt;&gt; zl1<br>
+			&lt;zip object at 0x0308A6E8&gt;<br>
+			&gt;&gt;&gt; l_zl1=list(zl1)<br>
+			&gt;&gt;&gt; l_zl1<br>
+			[('a',), ('b',), ('c',)]<br>
+			&gt;&gt;&gt; <br>
+			&gt;&gt;&gt; l3=[100,200,300,400]<br>
+			&gt;&gt;&gt; l_zl3=list(zip(l1,l3))<br>
+			&gt;&gt;&gt; l_zl3<br>
+			[('a', 100), ('b', 200), ('c', 300)]
+			</samp>
+		</p>		
+	</section>
+	<section>
+		<h3>Functia eval()</h3>
+		<p>Primeste ca parametru un sir pe care il evalueaza ca expresie.
+			<samp class="output">
+				&gt;&gt;&gt; eval("1+2-4")<br>
+				-1
+			</samp>
+		</p>
+	</section>
+</section>
+
+<section>
+	<h3>Expresii lambda</h3>
+	<p>Functiile lambda sunt functii anonime de dimesniune mica. Executa doar o expresie. Forma generala este:
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+	lambda p1, p2, .. pn: expresie
+	</code>
+	Expresia, depinde, evident, de parametrii functiei.
+	</p>
+	<p>Exemplu:
+		<samp class="output">
+			&gt;&gt;&gt; q = lambda a : a**2<br>
+			&gt;&gt;&gt; q(10)<br>
+			100<br>
+			&gt;&gt;&gt; w = lambda a, b, c: a+b+c<br>
+			&gt;&gt;&gt; w("xyz","uuu","hop")<br>
+			'xyzuuuhop'<br>
+			&gt;&gt;&gt; type(w)<br>
+			&lt;class 'function'&gt;
+		</samp>
+	</p>
+	<p>Un exemplu de folosire a functiilor lambda pentru sortarea listelor dupa alt criteriu decat cel default:
+	</p><p>Exemplu:
+		<samp class="output">
+			&gt;&gt;&gt; l=["abc","z","baubau","wwww",""]<br>
+			&gt;&gt;&gt; l.sort()<br>
+			&gt;&gt;&gt; l<br>
+			['', 'abc', 'baubau', 'wwww', 'z']<br>
+			&gt;&gt;&gt; l.sort(key=lambda x: len(x))<br>
+			&gt;&gt;&gt; l<br>
+			['', 'z', 'abc', 'wwww', 'baubau']
+
+		</samp>
+	</p>
+</section>
+<section>
+	<h3>Comprehensions</h3>
+	<section>
+		<h4>List comprehensions</h4>
+		<p>Sintaxa: [expresie_element for parametru in element_iterabil].
+			<samp class="output">
+				&gt;&gt;&gt; [x for x in range(10,20,2)]<br>
+				[10, 12, 14, 16, 18]<br>
+				&gt;&gt;&gt; [x for x in "abcd"]<br>
+				['a', 'b', 'c', 'd']
+			</samp>
+		</p>
+		<p>Se poate adauga si o conditie pentru elemente adaugate in lista. 
+Sintaxa: [expresie_element for parametru in element_iterabil if 
+conditie]
+			<samp class="output">
+				&gt;&gt;&gt; [x for x in "abracadabra" if x&lt;"e"]<br>
+				['a', 'b', 'a', 'c', 'a', 'd', 'a', 'b', 'a']
+			</samp>		
+		</p>
+		<p>Pentru conditii putem folosi si expresii conditionale (diferenta 
+este ca expresia pentru elementul generator - al carei rezultat se pune 
+in lista - contine conditia):
+			<samp class="output">
+				&gt;&gt;&gt; [ "a"+str(x) if x&lt;5 else "b"+str(x) for x in range(10)]<br>
+				['a0', 'a1', 'a2', 'a3', 'a4', 'b5', 'b6', 'b7', 'b8', 'b9']
+			</samp>		
+		</p>
+		<p>Putem combina expresii conditionale cu conditiile puse pentru comprehension:
+			<samp class="output">
+				&gt;&gt;&gt; [ "a"+str(x) if x&lt;5 else "b"+str(x) for x in range(20) if x%3==0]<br>
+				['a0', 'a3', 'b6', 'b9', 'b12', 'b15', 'b18']
+			</samp>		
+		</p>
+		<p>Se pot pune mai multe expresii for in cazul in care elementele depind de mai multi parametri:
+			<samp class="output">
+				&gt;&gt;&gt; [x*10+y for x in range(3,8) for y in range(1,10,2) if x&lt;y ]<br>
+				[35, 37, 39, 45, 47, 49, 57, 59, 67, 69, 79]
+			</samp>
+		</p>
+		<p>Putem genera astfel chiar si matrici:
+			<samp class="output">
+				&gt;&gt;&gt; [0 for x in range(4)]<br>
+				[0, 0, 0, 0]<br>
+				&gt;&gt;&gt; [[0 for x in range(4)] for y in range(4)]<br>
+				[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+			</samp>
+		</p>
+	</section>
+	<section>
+		<h4>Set comprehensions</h4>
+		<p>Au aceeasi forma ca si pentru liste, doar ca se scriu intre acolade:
+			<samp class="output">
+				&gt;&gt;&gt; {int(x) for x in str(100541)}<br>
+				{0, 1, 4, 5}<br>
+				&gt;&gt;&gt; {(x,y) for x in [1,2,3,1] for y in [2,2,3]}<br>
+				{(1, 2), (3, 2), (1, 3), (3, 3), (2, 3), (2, 2)}<br>
+				&gt;&gt;&gt; {(x,y) for x in [1,2,3,1] for y in [2,2,3] if x&gt;=y}<br>
+				{(3, 2), (3, 3), (2, 2)}
+			</samp>
+		</p>
+	</section>
+	<section>
+		<h4>Dict comprehensions</h4>
+		<p>Au aceeasi forma ca si pentru liste, doar ca se scriu intre acolade si elementul generator e de forma k:v
+			<samp class="output">
+				&gt;&gt;&gt; {k:k**3 for k in range(0,10)}<br>
+				{0: 0, 1: 1, 2: 8, 3: 27, 4: 64, 5: 125, 6: 216, 7: 343, 8: 512, 9: 729}<br>
+				&gt;&gt;&gt; {k:[k**y for y in range(0,4)] for k in range(1,10)}<br>
+				{1: [1, 1, 1, 1], 2: [1, 2, 4, 8], 3: [1, 3, 9, 27], 4: [1, 4, 16, 
+64], 5: [1, 5, 25, 125], 6: [1, 6, 36, 216], 7: [1, 7, 49, 343], 8: [1, 
+8, 64, 512], 9: [1, 9, 81, 729]}<br>
+				&gt;&gt;&gt; [(x,y) for x in range(1,4) for y in range(7,10)]<br>
+				[(1, 7), (1, 8), (1, 9), (2, 7), (2, 8), (2, 9), (3, 7), (3, 8), (3, 9)]<br>
+				&gt;&gt;&gt; {k:v for k,v in [(x,y) for x in range(1,4) for y in range(7,10)]}<br>
+				{1: 9, 2: 9, 3: 9}
+			</samp>
+		</p>
+	</section>
+</section>
+
+<section>
+	<h3>Exceptii</h3>
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		def impartire_supraunit(x,y):<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;try:<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if x&lt;y :<br>
+		
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise
+ Exception("Primul argument trebuie sa fie mai mare sau egal decat al 
+doilea.")<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x/y<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;except ZeroDivisionError:<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Al doilea argument nu poate fi zero")<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;except TypeError as eroare:<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Argumentele nu sunt numere:"+str(eroare))<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;except Exception as eroare:<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(eroare)<br>
+		<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+		&nbsp;<br>
+		print(impartire_supraunit(8,0))&nbsp;&nbsp;&nbsp;<br>
+		print(impartire_supraunit("x",10))<br>
+		print(impartire_supraunit(5,10))<br>
+		print(impartire_supraunit(10,5))
+	</code>
+</section>
+<section>
+	<h3>Fisiere</h3>
+	<p>Fisierele se deschid cu functia open(cale_fisier, mod_deschidere). Modul de deschidere poate fi:</p>
+	<ul>
+		<li>r - pentru citire</li>
+		<li>w - pentru scriere. In caz ca fisierul exista deja, se suprascrie.</li>
+		<li>a - pentru adaugare. In caz ca fisierul exista deja, tot ce se scrie se adauga la finalul fisierului.</li>	
+		<li>r+ - si pentru citire si pentru scriere.</li>
+	</ul>
+	<section>
+		<h4>Metode I/O pentru fisiere</h4>
+		<p>Pentru scriere folosim metoda <b>write()</b>.</p>
+		<p>Pentru citirea intregului fisier folosim metoda <b>read()</b>. Ii putem da si un argument care reprezinta cate caractere sa citeasca (f.read(10)).</p>
+		<p>Pentru citirea unei anumite linii din fisier folosim metoda <b>readLine(numar_linie)</b>. </p>
+		<p>Pentru citirea fisierului linie cu linie folosim metoda <b>readLines()</b> care va returna o lista cu toate liniile. </p>
+		<p>Putem itera prin liniile fisierului astfel:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			fisier = open("fis.txt", "r") <br>
+			for linie in fisier:  <br>
+			&nbsp;&nbsp;&nbsp;&nbsp;print(linie) 
+			</code>	
+		</p>
+		<p>Metoda tell() returneaza pozitia cursorului in fisier, iar metoda seek() pozitioneaza cursorul in fisier intr-o anumita locatie.</p>
+		<p>Pentru a inchide fisierul folosim metoda close().</p>
+	</section>
+</section>
+<!--
+<section>
+	<h3>Clase</h3>
+</section>
+<section>
+	<h3>Module</h3>
+</section>
+
+
+<section>
+	<h3>Expresii regulate</h3>
+</section>
+-->
+<ol start="1" style="text-indent:0; font-weight:bold;"><section class="afis_exercitiu" style="text-indent:0px; padding-left:0px; margin-left:0px;font-weight:normal">
+				<form id="f11" action="/proces_lbnat/lab2.php" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="upload" id="upload" value="oac-oac">
+				<input type="hidden" name="upload_clasa" id="upload_clasa" value="laborator">
+				<input type="hidden" name="nr_clasa_up" id="nr_clasa_up" value="2">
+				<input type="hidden" name="student" id="student" value="ionutcalofir">
+
+				<div style="font-weight:normal">
+				<div class="exercitiu">
+				<b class="exercitiu_laborator">[Exercitiu laborator]</b><br>Identificator: <b>python_argumente_program</b><br>Sa se scrie un program aduna.py. Acesta va contine o functie <i>aduna</i>
+ cu numar variabil de argumente, care returneaza suma lor. Programul 
+aduna.py va primi ca argumente niste numere si, folosind functia 
+mentionata anterior, va afisa suma numerelor. Daca unul dintre 
+argumentele primite de program nu e numar, programul va afisa mesajul 
+"Nu se poate face suma.".
+<div class="punctaj"><p><b>Punctaj:0.2 </b></p>
+</div>
+				
+				<div style="background-color:#eae6f8 ; border: 1px dashed #67d3ea"></div></div></div></form></section></ol></main></body></html>

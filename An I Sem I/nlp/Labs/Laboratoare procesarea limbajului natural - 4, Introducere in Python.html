@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ro"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/stil.css">
+    <link rel="shortcut icon" type="image/x-icon" href="http://irinaciocan.ro/proces_lbnat/favicon.ico">
+	<!--<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />-->
+	<meta charset="UTF-8">
+	<meta name="author" content="Irina Ciocan">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/jquery-3.js"></script>          
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/modernizr-custom.js"></script> 
+	<!--[if lt IE 9]>	
+		<script type="text/javascript" src="/biblioteca/html5shiv.js"></script>
+	<![endif]-->
+		<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/functiile_mele.js"></script>
+	
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/cuprins.js"></script>
+
+
+<title>Laboratoare procesarea limbajului natural - 4, Introducere in Python</title>
+
+ 
+<script type="text/javascript">
+<!--
+
+
+//pentru cookie-uri
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+  {
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+
+
+
+function st_pag_menu()
+{
+var url_pag=document.URL;
+var ind_menu_pag=url_pag.lastIndexOf("/");// http://irinaciocan.ro... => index 19
+var menu_pag=url_pag.substr(ind_menu_pag+1,url_pag.length-ind_menu_pag-5);//5=.html
+//alert(menu_pag);
+var opt_meniu=document.getElementById(menu_pag);
+if(opt_meniu)
+	opt_meniu.style.color="black";
+}
+
+
+function pozitioneazaMeniu(offset) 
+		{
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var margine_sus=$("header.principal").outerHeight();
+			if ($window.scrollTop() > margine_sus) 
+			//if ($sidebar.scrollTop() > 0) 
+			{
+					//$sidebar.css("top", $window.scrollTop()); //- offset.top);
+					$sidebar.css("position","fixed");
+					$sidebar.css("top","0px");
+				
+			} 
+			else 
+			{
+					$sidebar.css("position","absolute");
+					$sidebar.css("top",margine_sus+"px");
+
+			}
+		}
+
+
+
+
+$(document).ready(
+	function()
+	{
+			//pozitioneazaMeniu();
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var offset_meniu = $sidebar.offset();
+			$(window).scroll(function(){
+				pozitioneazaMeniu(offset_meniu);
+			});	
+			$(".opt_meniu").attr("dataDeschis","inchis");
+			$(".opt_meniu").append("<img class='acces_submeniu' src='/imagini/triunghi_alb_mic_b_jos.png' alt=''>");
+			$(".opt_meniu").click(
+				function()
+				{
+					
+					//$plusulet=$(this).find("span.acces_submeniu");
+					//if($(".opt_meniu").attr("dataDeschis")=="inchis")
+					if($(this).attr("dataDeschis")=="inchis")
+					{
+						//$plusulet.text("-");
+						$elem_curent=$(this);
+						//$plusulet.text("+");
+						$(".opt_meniu").each(
+							function() {
+								if($(this)!=$elem_curent)
+								{
+									$(this).attr("dataDeschis","inchis");
+									$submeniu=$(this).next("ul");
+									$submeniu.css("display","none");
+									$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+								}
+							}
+						);
+						$(this).attr("dataDeschis","deschis");		
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","block");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_sus.png');
+					}
+					else
+					{
+
+
+						$(this).attr("dataDeschis","inchis");
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","none");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+
+					}
+
+				}
+			);
+	}
+);
+
+//daca ecranul e mai lat, expandeaza divurile in latime
+
+
+//-->
+</script>
+
+</head>
+<body onload="initial()">
+	<header class="principal">
+		<h1>Procesarea limbajului natural</h1>
+		<div id="nume_login">
+			<p class="alerta">Esti logat drept ionutcalofir</p><a class="link_login" href="http://irinaciocan.ro/proces_lbnat/logout.php">Iesi din cont</a><br>		</div>
+		<nav id="meniu_sus">
+			<ul class="meniu_principal">
+
+
+				<li>
+					<a id="index" href="http://irinaciocan.ro/proces_lbnat/index.php">Principal</a>
+				</li>
+				<li>
+					<a id="inregistrare" href="http://irinaciocan.ro/proces_lbnat/inregistrare.php">Profil</a>
+				</li>
+				<!--
+				<li>
+					<a style="color:red;" id="regulament" href="/proces_lbnat/regulament.php">Proiect HTML+CSS</a>
+					<button class="opt_meniu optiune_importanta" id="proiect_html">Proiect HTML+CSS</button>
+					<ul>
+						<li><a id="barem_proiect" href="/proces_lbnat/barem_proiect.php">Barem proiect</a></li>
+						<li><a id="proiect" href="/proces_lbnat/proiect.php">Realizare proiect</a></li>
+					</ul>
+				</li>
+				-->
+				<!--
+				<li>
+					<a id="barem_proiect" class="optiune_importanta" href="/proces_lbnat/barem_proiect.php">Barem proiect</a>
+				</li>
+				-->
+				<li>
+					<button class="opt_meniu" id="laboratoare" datadeschis="inchis">Laboratoare<img class="acces_submeniu" src="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/triunghi_alb_mic_b_jos.png" alt=""></button>
+					<ul>
+						<!--<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>-->
+						<li><a id="lab1" href="http://irinaciocan.ro/proces_lbnat/lab1.php">Laborator 1<br></a></li>
+						<li><a id="lab2" href="http://irinaciocan.ro/proces_lbnat/lab2.php">Laborator 2<br></a></li>
+						
+						<li><a id="lab3" href="http://irinaciocan.ro/proces_lbnat/lab3.php">Laborator 3<br></a></li>
+						<li><a id="lab4" href="http://irinaciocan.ro/proces_lbnat/lab4.php" style="color: black;">Laborator 4<br></a></li>
+						
+						<li><a id="lab5" href="http://irinaciocan.ro/proces_lbnat/lab5.php">Laborator 5<br></a></li>
+						
+						
+						<li><a id="lab6" href="http://irinaciocan.ro/proces_lbnat/lab6.php">Laborator 6<br></a></li>
+						<!--
+						<li><a id="lab7" href="/proces_lbnat/lab7.php">Laborator 7<br></a></li>
+						<li><a id="lab8" href="/proces_lbnat/lab8.php">Laborator 8<br></a></li>
+						<li><a id="lab9" href="/proces_lbnat/lab9.php">Laborator 9<br></a></li>
+						<li><a id="lab10" href="/proces_lbnat/lab10.php">Laborator 10<br></a></li>
+						<li><a id="lab11" href="/proces_lbnat/lab11.php">Laborator 11<br></a></li>
+						<li><a id="lab12" href="/proces_lbnat/lab12.php">Laborator 12<br></a></li>
+						-->
+					</ul>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">M.I.</button>
+					<ul>
+						<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>
+						<li><a id="mi_lab1" href="/proces_lbnat/mi_lab1.php">M.I. 1<br></a></li>
+						<li><a id="mi_lab2" href="/proces_lbnat/mi_lab2.php">M.I. 2<br></a></li>
+						<li><a id="mi_lab3" href="/proces_lbnat/mi_lab3.php">M.I. 3<br></a></li>
+						<li><a id="mi_lab4" href="/proces_lbnat/mi_lab4.php">M.I. 4<br></a></li>
+						<li><a id="mi_lab5" href="/proces_lbnat/mi_lab5.php">M.I. 5<br></a></li>
+						<li><a id="mi_lab6" href="/proces_lbnat/mi_lab6.php">M.I. 6<br></a></li>
+						<li><a id="mi_lab7" href="/proces_lbnat/mi_lab7.php">M.I. 7<br></a></li>
+						<li><a id="mi_lab8" href="/proces_lbnat/mi_lab8.php">M.I. 8<br></a></li>
+						<li><a id="mi_lab9" href="/proces_lbnat/mi_lab9.php">M.I. 9<br></a></li>
+						<li><a id="mi_lab10" href="/proces_lbnat/mi_lab10.php">M.I. 10<br></a></li>
+						<li><a id="mi_lab11" href="/proces_lbnat/mi_lab11.php">M.I. 11<br></a></li>
+						<li><a id="mi_lab12" href="/proces_lbnat/mi_lab12.php">M.I. 12<br></a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">M.I. mai simplu<br></a></li>
+						<li><a id="exercitii_recapitulative" href="/proces_lbnat/exercitii_recapitulative.php">M.I.recapitulativ<br></a></li>
+					</ul>
+				</li>
+-->
+				<li>
+					<a href="#">Note</a>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">Proiect JS</button>
+					<ul>
+
+						<li><a id="barem_proiect_js" href="/proces_lbnat/barem_proiect_js.php">Barem proiect JS<br></a></li>
+						<li><a id="teme_proiect_js" href="/proces_lbnat/teme_proiect_js.php">Teme proiect JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="mi">Test JS</button>
+					<ul>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Pregatire test JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="anexe">Anexe</button>
+					<ul>
+					<li>
+							<a id="model_test_css" href="/proces_lbnat/model_test_css.php">Model test CSS</a>
+					</li>
+					<!--
+						<li><a id="backup" href="/biblioteca/backup.php?folder=proces_lbnat">Backup<br></a></li>
+						<li><a id="debug" href="/proces_lbnat/debug.php">Debug<br></a></li>
+						<li>
+							<a id="exemplu_tema" href="/proces_lbnat/exemplu_tema.php">Exemplu tema</a>
+						</li>
+						<li>
+							<a id="modele_test_prolog" href="/proces_lbnat/modele_test_prolog.php">Model test 1</a>
+						</li>
+						<li>
+							<a id="modele_test_algoritmi" href="/proces_lbnat/modele_test_algoritmi.php">Model test 2</a>
+						</li>
+						<li>
+							<a id="interfata_grafica" href="/proces_lbnat/interfata_grafica.php">Interfata</a>
+						</li>
+						
+					</ul>
+					
+				</li>
+				
+				<li>
+					<button class="opt_meniu" id="proiecte">Proiecte si exercitii</button>
+					<ul>
+						<li><a id="proiecte" href="/proces_lbnat/proiecte.php">Proiecte JS</a></li>
+						<li><a id="exercitii_simple" href="/proces_lbnat/exercitii_simple.php">Exercitii simple</a></li>
+						<li><a id="exercitii_pregatire_examen" href="/proces_lbnat/exercitii_pregatire_examen.php">Exercitii-proiect</a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">Exercitii f. simple</a></li>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Test JS</a>
+						</li>
+					</ul>
+				</li>
+				-->	<!--
+
+	<li class="meniu_bord"><a id="seminar1" href="seminar1.php">Seminar 1</a></li>
+
+	<li  class="meniu_bord"><a id="bibliografie" href="bibliografie.php" style="color:red" title="pentru proiect!">Bibliografie</a></li>
+	<li><a id="exemplu_tema" href="exemplu_tema.php">Regulament teme</a></li>
+	<hr style="margin:0; padding:0; border:0; height:1px; color:grey; background-color:grey;"/>
+	<br/>-->
+
+			</ul>
+		</nav>
+	</header>
+<main>
+<h2>Laboratorul 4</h2>
+<h5 class="def" title="A trecut deadline-ul">(Deadline: 23.12.2018 23:59:59)</h5>
+<p style="font-style:italic;color:grey;">Daca nu sunteti logati exercitiile nu se mai afiseaza.</p>
+
+
+<!--
+https://docs.python.org/3/tutorial/modules.html
+executabile?
+-->
+
+
+<section>
+	<h3>NLTK</h3>
+	<section>
+		<p><abbr title="Natural Language Toolkit)">NLTK</abbr> (Natural 
+Language Toolkit) este o  platforma specializata pe procesarea 
+limbajului natural. Pachetul NLTK implementeaza cei mai cunoscuti 
+algoritmi din acest domeniu, si, in plus vine si cu o semnificativa 
+parte de date, continand corpusurile cele mai utilizate.</p>
+		<aside>
+		<p>Un corpus este o colectie de texte in format electronic, fie cu continut <i lang="en">raw</i> (tetul original, neadnotat) fie cu diverse adnotari(POS, sintactice, semantice).</p>
+		</aside>
+		<section>
+			<h4>Instalarea NLTK</h4>
+			<p>Pentru instalarea NLTK vom folosi <code>pip</code>.
+			</p><p>Scrieti in linia de comanda
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+				pip install nltk
+			</code>
+			</p>
+			<p>Dupa instalare putem importa modulul in consola:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+				import nltk
+			</code>
+			</p>
+			<p>Descarcati resursele pentru nltk (ideal ar fi pachetele pentru 
+limba engleza + datele  din book - sunt niste resurse folosite in 
+manualul principal despre NLTK, dar putem sa le folosim si noi in 
+aplicatii).</p>
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+				nltk.download()
+			</code>
+			In urma apelului functiei download ar trebui sa vi se afiseze un ecran de forma:<br>
+			<img src="Laboratoare%20procesarea%20limbajului%20natural%20-%204,%20Introducere%20in%20Python_files/ecran_download_nltk.png" alt="ecran download date pentru nltk">
+			<p></p>
+			<p>Observati ca sunt mai multe taburi:
+				</p><ul>
+					<li>Collections - este cu colectiile mari de pachete (un fel de afisare compacta)</li>
+					<li>Corpora - este afisarea detaliata a pachetelor cu corpusuri - din care alegeti voi ce aveti nevoie</li>
+					<li>Models (date)</li>
+					<li>All packages - pachetele afisate detaliat.</li>
+				</ul>
+			<p></p>
+		</section>
+		<section>
+			<h4>Texte predefinite</h4>
+			<p>In exercitiile de laborator vom folosi textele din modulul book (si alte cateva tool-uri de acolo). Pentru a le importa, scriem:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+				&gt;&gt;&gt; from nltk.book import *<br>
+				*** Introductory Examples for the NLTK Book ***<br>
+				Loading text1, ..., text9 and sent1, ..., sent9<br>
+				Type the name of the text or sentence to view it.<br>
+				Type: 'texts()' or 'sents()' to list the materials.<br>
+				text1: Moby Dick by Herman Melville 1851<br>
+				text2: Sense and Sensibility by Jane Austen 1811<br>
+				text3: The Book of Genesis<br>
+				text4: Inaugural Address Corpus<br>
+				text5: Chat Corpus<br>
+				text6: Monty Python and the Holy Grail<br>
+				text7: Wall Street Journal<br>
+				text8: Personals Corpus<br>
+				text9: The Man Who Was Thursday by G . K . Chesterton 1908<br>
+				&gt;&gt;&gt;
+			</code>
+			Ar trebui sa vedeti un output asemanator cu cel de mai sus.
+			</p>
+		</section>
+		<section>
+			<h4>Analiza morfologica</h4>
+			<p>Pentru a realiza analiza morfologica, vom folosi POS taggerul (Part Of ) de la Stanford:
+			<a target="_blank" href="https://nlp.stanford.edu/software/">https://nlp.stanford.edu/software/</a>. Indicat este sa descarcati versiunea full. Dezarhivati taggerul si observati un jar cu numele de forma <i>stanford-postagger.jar</i>.
+			</p><p>Importati in consola taggerul:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			from nltk.tag.stanford import StanfordPOSTagger
+			</code>
+			</p><p>Vrem sa ne creem o instanta a taggerului:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			tagger=StanfordPOSTagger(cale_model, cale_jar_tagger)
+			</code>
+			</p>
+			Vom folosi modelul english-bidirectional-distsim.tagger.
+			<p>Pentru a aplica tagurile POS folosim metoda tag()</p>
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			tagger.tag(["I","saw","a","cat"])
+			</code>			
+			<p>In cazul in care primiti o eroare la incercarea folosirii taggerului, urmati indicatiile de aici:
+			<a target="_blank" href="https://stackoverflow.com/questions/34692987/cant-make-stanford-pos-tagger-working-in-nltk">https://stackoverflow.com/questions/34692987/cant-make-stanford-pos-tagger-working-in-nltk</a>
+			</p><p>Incercati sa parsati o propozitie si urmariti <a target="_blank" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">semnificatia tagurilor	</a>		
+			In cazul in care primim un text ca sir si nu ca lista de cuvinte, putem sa il <i>tokenizam</i>:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			&gt;&gt;&gt; nltk.word_tokenize("It was late. I saw a cat chasing a mouse.")<br>
+			['It', 'was', 'late', '.', 'I', 'saw', 'a', 'cat', 'chasing', 'a', 'mouse', '.']<br>
+			&gt;&gt;&gt; 
+			</code>
+			Stopwords:
+			<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+			&gt;&gt;&gt; from nltk.corpus import stopwords<br>
+&gt;&gt;&gt; stopwords.words('english')<br>
+['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 
+"you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 
+'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 
+'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 
+'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this',
+ 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 
+'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 
+'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 
+'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 
+'against', 'between', 'into', 'through', 'during', 'before', 'after', 
+'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 
+'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 
+'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 
+'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 
+'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 
+'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 
+'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 
+'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', 
+"hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', 
+"mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 
+'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', 
+"won't", 'wouldn', "wouldn't"]<br>
+&gt;&gt;&gt;
+	</code>
+		</p></section>
+		<!--<section>
+			<h4>Analiza sintactica</h4>
+		</section>-->
+
+
+
+
+<ol start="1" style="text-indent:0; font-weight:bold;"><section class="afis_exercitiu" style="text-indent:0px; padding-left:0px; margin-left:0px;font-weight:normal">
+				<form id="f27" action="/proces_lbnat/lab4.php" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="upload" id="upload" value="oac-oac">
+				<input type="hidden" name="upload_clasa" id="upload_clasa" value="laborator">
+				<input type="hidden" name="nr_clasa_up" id="nr_clasa_up" value="4">
+				<input type="hidden" name="student" id="student" value="ionutcalofir">
+
+				<div style="font-weight:normal">
+				<div class="exercitiu">
+				<b class="exercitiu_laborator">[Exercitiu laborator]</b><br>Identificator: <b>statistici_text</b><br>
+Rezolvati urmatoarele cerinte. Pentru fiecare cerinta afisati cate milisecunde a durat procesarea.
+In subpunctele de mai jos prin cuvinte intelegem siruri formate din litere sau cifre.
+<ol>
+<li>Instalati nltk in cazul in care nu e deja instalat. Downloadati 
+resursele necesare pentru acest exercitiu (book). Veti folosi textul 2</li>
+<li>Afisati cate cuvinte are textul.</li>
+<li>Afisati titlul textului.</li>
+<li>Afisati lungimea vocabularului textului. Consideram ca in vocabular 
+nu intra si numerele sau sirurile corespunzatoare semnelor de 
+punctuatie.</li>
+<li>Scrieti o functie care returneaza numarul de cuvinte de lungime L. Apelati functia.</li>
+<li>Scrieti o functie care afiseaza primele N cuvinte distincte (din 
+vocabularul ordonat alfabetic) care incep cu litera L. Apelati functia.</li>
+<li>Afisati cel mai lung si cel mai scurt cuvant din text. In cazul in 
+care sunt mai multe cuvinte de lungime minima sau maxima, se afiseaza 
+toate.</li>
+<li>Afisati primele N cele mai frecvente cuvinte (formate din litere sau cifre) din text impreuna cu numarul de aparitii.</li>
+<li>Afisati lungimea medie a cuvintelor din text</li>
+<li>Afisati cuvintele care apar o singura data in text.</li>
+<li>Afisati colocatiile din text.</li>
+</ol>
+<div class="punctaj"><p><b>Punctaj:0.55 </b></p>
+</div>
+				
+				<div style="background-color:#eae6f8 ; border: 1px dashed #67d3ea"></div></div></div></form></section></ol></section></section></main></body></html>

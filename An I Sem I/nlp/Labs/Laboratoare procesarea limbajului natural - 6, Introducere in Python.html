@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ro"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="Laboratoare%20procesarea%20limbajului%20natural%20-%206,%20Introducere%20in%20Python_files/stil.css">
+    <link rel="shortcut icon" type="image/x-icon" href="http://irinaciocan.ro/proces_lbnat/favicon.ico">
+	<!--<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />-->
+	<meta charset="UTF-8">
+	<meta name="author" content="Irina Ciocan">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%206,%20Introducere%20in%20Python_files/jquery-3.js"></script>          
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%206,%20Introducere%20in%20Python_files/modernizr-custom.js"></script> 
+	<!--[if lt IE 9]>	
+		<script type="text/javascript" src="/biblioteca/html5shiv.js"></script>
+	<![endif]-->
+		<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%206,%20Introducere%20in%20Python_files/functiile_mele.js"></script>
+	
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%206,%20Introducere%20in%20Python_files/cuprins.js"></script>
+
+
+<title>Laboratoare procesarea limbajului natural - 6, Introducere in Python</title>
+
+ 
+<script type="text/javascript">
+<!--
+
+
+//pentru cookie-uri
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+  {
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+
+
+
+function st_pag_menu()
+{
+var url_pag=document.URL;
+var ind_menu_pag=url_pag.lastIndexOf("/");// http://irinaciocan.ro... => index 19
+var menu_pag=url_pag.substr(ind_menu_pag+1,url_pag.length-ind_menu_pag-5);//5=.html
+//alert(menu_pag);
+var opt_meniu=document.getElementById(menu_pag);
+if(opt_meniu)
+	opt_meniu.style.color="black";
+}
+
+
+function pozitioneazaMeniu(offset) 
+		{
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var margine_sus=$("header.principal").outerHeight();
+			if ($window.scrollTop() > margine_sus) 
+			//if ($sidebar.scrollTop() > 0) 
+			{
+					//$sidebar.css("top", $window.scrollTop()); //- offset.top);
+					$sidebar.css("position","fixed");
+					$sidebar.css("top","0px");
+				
+			} 
+			else 
+			{
+					$sidebar.css("position","absolute");
+					$sidebar.css("top",margine_sus+"px");
+
+			}
+		}
+
+
+
+
+$(document).ready(
+	function()
+	{
+			//pozitioneazaMeniu();
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var offset_meniu = $sidebar.offset();
+			$(window).scroll(function(){
+				pozitioneazaMeniu(offset_meniu);
+			});	
+			$(".opt_meniu").attr("dataDeschis","inchis");
+			$(".opt_meniu").append("<img class='acces_submeniu' src='/imagini/triunghi_alb_mic_b_jos.png' alt=''>");
+			$(".opt_meniu").click(
+				function()
+				{
+					
+					//$plusulet=$(this).find("span.acces_submeniu");
+					//if($(".opt_meniu").attr("dataDeschis")=="inchis")
+					if($(this).attr("dataDeschis")=="inchis")
+					{
+						//$plusulet.text("-");
+						$elem_curent=$(this);
+						//$plusulet.text("+");
+						$(".opt_meniu").each(
+							function() {
+								if($(this)!=$elem_curent)
+								{
+									$(this).attr("dataDeschis","inchis");
+									$submeniu=$(this).next("ul");
+									$submeniu.css("display","none");
+									$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+								}
+							}
+						);
+						$(this).attr("dataDeschis","deschis");		
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","block");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_sus.png');
+					}
+					else
+					{
+
+
+						$(this).attr("dataDeschis","inchis");
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","none");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+
+					}
+
+				}
+			);
+	}
+);
+
+//daca ecranul e mai lat, expandeaza divurile in latime
+
+
+//-->
+</script>
+
+</head>
+<body onload="initial()">
+	<header class="principal">
+		<h1>Procesarea limbajului natural</h1>
+		<div id="nume_login">
+			<p class="alerta">Esti logat drept ionutcalofir</p><a class="link_login" href="http://irinaciocan.ro/proces_lbnat/logout.php">Iesi din cont</a><br>		</div>
+		<nav id="meniu_sus">
+			<ul class="meniu_principal">
+
+
+				<li>
+					<a id="index" href="http://irinaciocan.ro/proces_lbnat/index.php">Principal</a>
+				</li>
+				<li>
+					<a id="inregistrare" href="http://irinaciocan.ro/proces_lbnat/inregistrare.php">Profil</a>
+				</li>
+				<!--
+				<li>
+					<a style="color:red;" id="regulament" href="/proces_lbnat/regulament.php">Proiect HTML+CSS</a>
+					<button class="opt_meniu optiune_importanta" id="proiect_html">Proiect HTML+CSS</button>
+					<ul>
+						<li><a id="barem_proiect" href="/proces_lbnat/barem_proiect.php">Barem proiect</a></li>
+						<li><a id="proiect" href="/proces_lbnat/proiect.php">Realizare proiect</a></li>
+					</ul>
+				</li>
+				-->
+				<!--
+				<li>
+					<a id="barem_proiect" class="optiune_importanta" href="/proces_lbnat/barem_proiect.php">Barem proiect</a>
+				</li>
+				-->
+				<li>
+					<button class="opt_meniu" id="laboratoare" datadeschis="inchis">Laboratoare<img class="acces_submeniu" src="Laboratoare%20procesarea%20limbajului%20natural%20-%206,%20Introducere%20in%20Python_files/triunghi_alb_mic_b_jos.png" alt=""></button>
+					<ul>
+						<!--<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>-->
+						<li><a id="lab1" href="http://irinaciocan.ro/proces_lbnat/lab1.php">Laborator 1<br></a></li>
+						<li><a id="lab2" href="http://irinaciocan.ro/proces_lbnat/lab2.php">Laborator 2<br></a></li>
+						
+						<li><a id="lab3" href="http://irinaciocan.ro/proces_lbnat/lab3.php">Laborator 3<br></a></li>
+						<li><a id="lab4" href="http://irinaciocan.ro/proces_lbnat/lab4.php">Laborator 4<br></a></li>
+						
+						<li><a id="lab5" href="http://irinaciocan.ro/proces_lbnat/lab5.php">Laborator 5<br></a></li>
+						
+						
+						<li><a id="lab6" href="http://irinaciocan.ro/proces_lbnat/lab6.php" style="color: black;">Laborator 6<br></a></li>
+						<!--
+						<li><a id="lab7" href="/proces_lbnat/lab7.php">Laborator 7<br></a></li>
+						<li><a id="lab8" href="/proces_lbnat/lab8.php">Laborator 8<br></a></li>
+						<li><a id="lab9" href="/proces_lbnat/lab9.php">Laborator 9<br></a></li>
+						<li><a id="lab10" href="/proces_lbnat/lab10.php">Laborator 10<br></a></li>
+						<li><a id="lab11" href="/proces_lbnat/lab11.php">Laborator 11<br></a></li>
+						<li><a id="lab12" href="/proces_lbnat/lab12.php">Laborator 12<br></a></li>
+						-->
+					</ul>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">M.I.</button>
+					<ul>
+						<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>
+						<li><a id="mi_lab1" href="/proces_lbnat/mi_lab1.php">M.I. 1<br></a></li>
+						<li><a id="mi_lab2" href="/proces_lbnat/mi_lab2.php">M.I. 2<br></a></li>
+						<li><a id="mi_lab3" href="/proces_lbnat/mi_lab3.php">M.I. 3<br></a></li>
+						<li><a id="mi_lab4" href="/proces_lbnat/mi_lab4.php">M.I. 4<br></a></li>
+						<li><a id="mi_lab5" href="/proces_lbnat/mi_lab5.php">M.I. 5<br></a></li>
+						<li><a id="mi_lab6" href="/proces_lbnat/mi_lab6.php">M.I. 6<br></a></li>
+						<li><a id="mi_lab7" href="/proces_lbnat/mi_lab7.php">M.I. 7<br></a></li>
+						<li><a id="mi_lab8" href="/proces_lbnat/mi_lab8.php">M.I. 8<br></a></li>
+						<li><a id="mi_lab9" href="/proces_lbnat/mi_lab9.php">M.I. 9<br></a></li>
+						<li><a id="mi_lab10" href="/proces_lbnat/mi_lab10.php">M.I. 10<br></a></li>
+						<li><a id="mi_lab11" href="/proces_lbnat/mi_lab11.php">M.I. 11<br></a></li>
+						<li><a id="mi_lab12" href="/proces_lbnat/mi_lab12.php">M.I. 12<br></a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">M.I. mai simplu<br></a></li>
+						<li><a id="exercitii_recapitulative" href="/proces_lbnat/exercitii_recapitulative.php">M.I.recapitulativ<br></a></li>
+					</ul>
+				</li>
+-->
+				<li>
+					<a href="#">Note</a>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">Proiect JS</button>
+					<ul>
+
+						<li><a id="barem_proiect_js" href="/proces_lbnat/barem_proiect_js.php">Barem proiect JS<br></a></li>
+						<li><a id="teme_proiect_js" href="/proces_lbnat/teme_proiect_js.php">Teme proiect JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="mi">Test JS</button>
+					<ul>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Pregatire test JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="anexe">Anexe</button>
+					<ul>
+					<li>
+							<a id="model_test_css" href="/proces_lbnat/model_test_css.php">Model test CSS</a>
+					</li>
+					<!--
+						<li><a id="backup" href="/biblioteca/backup.php?folder=proces_lbnat">Backup<br></a></li>
+						<li><a id="debug" href="/proces_lbnat/debug.php">Debug<br></a></li>
+						<li>
+							<a id="exemplu_tema" href="/proces_lbnat/exemplu_tema.php">Exemplu tema</a>
+						</li>
+						<li>
+							<a id="modele_test_prolog" href="/proces_lbnat/modele_test_prolog.php">Model test 1</a>
+						</li>
+						<li>
+							<a id="modele_test_algoritmi" href="/proces_lbnat/modele_test_algoritmi.php">Model test 2</a>
+						</li>
+						<li>
+							<a id="interfata_grafica" href="/proces_lbnat/interfata_grafica.php">Interfata</a>
+						</li>
+						
+					</ul>
+					
+				</li>
+				
+				<li>
+					<button class="opt_meniu" id="proiecte">Proiecte si exercitii</button>
+					<ul>
+						<li><a id="proiecte" href="/proces_lbnat/proiecte.php">Proiecte JS</a></li>
+						<li><a id="exercitii_simple" href="/proces_lbnat/exercitii_simple.php">Exercitii simple</a></li>
+						<li><a id="exercitii_pregatire_examen" href="/proces_lbnat/exercitii_pregatire_examen.php">Exercitii-proiect</a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">Exercitii f. simple</a></li>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Test JS</a>
+						</li>
+					</ul>
+				</li>
+				-->	<!--
+
+	<li class="meniu_bord"><a id="seminar1" href="seminar1.php">Seminar 1</a></li>
+
+	<li  class="meniu_bord"><a id="bibliografie" href="bibliografie.php" style="color:red" title="pentru proiect!">Bibliografie</a></li>
+	<li><a id="exemplu_tema" href="exemplu_tema.php">Regulament teme</a></li>
+	<hr style="margin:0; padding:0; border:0; height:1px; color:grey; background-color:grey;"/>
+	<br/>-->
+
+			</ul>
+		</nav>
+	</header>
+<main>
+<h2>Laboratorul 6</h2>
+<h5 class="def" title="A trecut deadline-ul">(Deadline: 20.01.2019 23:59:59)</h5>
+<p style="font-style:italic;color:grey;">Daca nu sunteti logati exercitiile nu se mai afiseaza.</p>
+
+
+<!--
+https://docs.python.org/3/tutorial/modules.html
+executabile?
+-->
+
+
+<section>
+	<h3>spaCy</h3>
+	<p>Bibliografie:</p>
+	<ul>
+		<li><a target="_blank" href="https://nlpforhackers.io/complete-guide-to-spacy/">https://nlpforhackers.io/complete-guide-to-spacy/</a>
+		</li>
+	</ul>
+	<p>Pentru instalare:
+	<samp class="output">
+	pip install spacy
+	</samp></p>
+	<p>Pentru upgrade:
+	<samp class="output">
+	pip install -U spacy
+	</samp></p>
+	Pentru a folosi datele pentru limba engleza:
+	<samp class="output">
+	python -m spacy download en
+	</samp><p></p>
+	<p></p>
+	<p>In toate programele in care procesati texte in limba engleza va trebui sa incarcati datele pentru limba engleza:
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+	import spacy<br>
+	sp_en = spacy.load('en')
+	</code>
+	</p>
+	<p>Mai jos vom urmari operatiile pe care le-am facut si cu nltk, doar ca de data asta vom folosi spaCy.</p>
+	<p>Impartirea pe fraze:
+		<samp class="output">
+&gt;&gt;&gt; text_procesat=sp_en("I saw a cat. The cat was white. It was running on the street.")<br>
+&gt;&gt;&gt; list(text_procesat.sents)<br>
+[I saw a cat., The cat was white., It was running on the street.]<br>
+		</samp>
+	</p>
+	<p>Tokenizare:
+		<samp class="output">
+&gt;&gt;&gt; for token in text_procesat:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(str(token.idx)+" "+token.text)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+0 I<br>
+2 saw<br>
+6 a<br>
+8 cat<br>
+11 .<br>
+13 The<br>
+17 cat<br>
+21 was<br>
+25 white<br>
+30 .<br>
+32 It<br>
+35 was<br>
+39 running<br>
+47 on<br>
+50 the<br>
+54 street<br>
+60 .<br>
+&gt;&gt;&gt; <br>
+		</samp>
+	</p>
+
+	<p>Analiza morfologica
+		<samp class="output">
+&gt;&gt;&gt; for token in text_procesat:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(token.pos_,end=" ")<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+PRON VERB DET NOUN PUNCT DET NOUN VERB ADJ PUNCT PRON VERB VERB ADP DET NOUN PUNCT <br>
+&gt;&gt;&gt; <br>
+		</samp>
+	</p>
+	
+	<p>Analiza sintactica bazata pe dependente:
+		<samp class="output">
+&gt;&gt;&gt; text_procesat=sp_en("The mouse saw a beautiful white cat running on the street.")<br>
+&gt;&gt;&gt; for token in text_procesat:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(token.dep_, "(", token.head.text, ", ", token.text,")")<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+det ( mouse ,&nbsp;&nbsp;The )<br>
+nsubj ( saw ,&nbsp;&nbsp;mouse )<br>
+ROOT ( saw ,&nbsp;&nbsp;saw )<br>
+det ( cat ,&nbsp;&nbsp;a )<br>
+amod ( cat ,&nbsp;&nbsp;beautiful )<br>
+amod ( cat ,&nbsp;&nbsp;white )<br>
+dobj ( saw ,&nbsp;&nbsp;cat )<br>
+acl ( cat ,&nbsp;&nbsp;running )<br>
+prep ( running ,&nbsp;&nbsp;on )<br>
+det ( street ,&nbsp;&nbsp;the )<br>
+pobj ( on ,&nbsp;&nbsp;street )<br>
+punct ( saw ,&nbsp;&nbsp;. )<br>
+&gt;&gt;&gt; <br>
+		</samp>
+	</p>	
+	<p>Folosirea <a target="_blank" href="https://spacy.io/api/annotation">tagurilor spacy</a> (expandati sectiunea pentru limba engleza) pentru a obtine informatii despre tokeni. De exemplu:
+	</p><ul>
+		<li>pentru substantive, numarul (singular, plural)</li>
+		<li>pentru verbe - persoana, timpul</li>
+	</ul>
+	<samp class="output">
+&gt;&gt;&gt; for token in text_procesat:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(token.tag_,end=" ")<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+PRP VBD DT NN . DT NN VBD JJ . PRP VBD VBG IN DT NN . <br>
+&gt;&gt;&gt; <br>
+&gt;&gt;&gt; spacy.explain("PRP")<br>
+'pronoun, personal'<br>
+&gt;&gt;&gt; spacy.explain("VBD")<br>
+'verb, past tense'<br>
+&gt;&gt;&gt; spacy.explain("NN")<br>
+'noun, singular or mass'<br>
+&gt;&gt;&gt; <br>
+	</samp>
+	<p>Pentru a obtine forma unui substantiv la singular/plural, sau 
+conjugarea unui verb pentru o anumita persoana si un anumit timp, 
+folosim modulul <code>pattern</code>. Se cloneaza/downloadeaza din <a target="_blank" href="https://github.com/clips/pattern">folderul git</a></p>
+	<p>Pentru a instala pattern:
+	<samp class="output">
+	pip install pattern
+	</samp></p>
+	<p>Daca aveti probleme la instalare, puteti lua modulul de pe git. Dupa ce ati instalat git, dati comanda:
+	<samp class="output">
+	git clone -b development https://github.com/clips/pattern
+	</samp>
+	Si apoi instalati pattern.
+	</p>
+	
+	<p>Daca va da o eraore legata de faptul ca nu poate deschide mysql.h, <a target="_blank" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient">downloadati whl-ul pentru Mysqlclient</a> si reincercati instalarea modulului <code>pattern</code>.
+	</p><p>De exemplu, daca dorim sa obtinem forma la plural a substantivului "cat", scriem:
+	<samp class="output">
+&gt;&gt;&gt; import pattern.en<br>
+&gt;&gt;&gt; pattern.en.pluralize("cat")<br>
+'cats'<br>
+	</samp>
+	iar pentru singularul lui "cats":
+	<samp class="output">
+&gt;&gt;&gt; pattern.en.singularize("cats")<br>
+'cat'<br>
+	</samp>
+	</p>
+	<p>Atentie, pattern nu verifica daca exista cuvantul dat ca rgument ci 
+doar ii aplica reguli de obtinere a pluralului, implementand si niste 
+exceptii. De exemplu daca vrem pluralul pentru "cats" sau pentru sirul 
+"abcdefghij":
+	<samp class="output">
+&gt;&gt;&gt; pattern.en.pluralize("cats")<br>
+'catss'<br>
+&gt;&gt;&gt; pattern.en.pluralize("abcdefghij")<br>
+'abcdefghijs'	
+	</samp>
+	</p>
+	<p>Putem folosi <b>pattern</b> si pentru a conjuga verbe:
+	<samp class="output">
+&gt;&gt;&gt; pattern.en.conjugate(verb="be",tense=pattern.en.PRESENT,number=pattern.en.SG)<br>
+'is'<br>
+&gt;&gt;&gt; pattern.en.conjugate(verb="be",tense=pattern.en.PRESENT,number=pattern.en.PLURAL)<br>
+'are'<br>
+&gt;&gt;&gt; pattern.en.conjugate(verb="run",tense=pattern.en.PAST,number=pattern.en.PLURAL)<br>
+'ran'<br>
+&gt;&gt;&gt; pattern.en.conjugate(verb="run",tense=pattern.en.PARTICIPLE,number=pattern.en.PLURAL)<br>
+'running'<br>
+&gt;&gt;&gt;
+	</samp>
+	</p>
+<ol start="1" style="text-indent:0; font-weight:bold;"><section class="afis_exercitiu" style="text-indent:0px; padding-left:0px; margin-left:0px;font-weight:normal">
+				<form id="f34" action="/proces_lbnat/lab6.php" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="upload" id="upload" value="oac-oac">
+				<input type="hidden" name="upload_clasa" id="upload_clasa" value="laborator">
+				<input type="hidden" name="nr_clasa_up" id="nr_clasa_up" value="6">
+				<input type="hidden" name="student" id="student" value="ionutcalofir">
+
+				<div style="font-weight:normal">
+				<div class="exercitiu">
+				Identificator: <b>introd_spacy</b><br><p>Exercitiul se va rezolva folosind cat mai mult metode din spaCy.</p>
+<p>Se citeste un text dintr-un fisier de input. Textul trebuie sa fie in engleza si sa fie format din aproximativ 10 fraze.</p>
+<p>Intr-un fisier de output, se afizeze pentru fiecare fraza urmatoarele informatii:</p>
+<ol>
+	<li>textul frazei</li>
+	<li>Cuvintele din fraza (siruri formate din litere), cate unul pe rand cu informatiile:
+		<ul>
+			<li>Pozitia lui in fraza (este vorba de pozitia in sir, la nivel de 
+caracter, si nu pozitia in multimea de cuvinte). De exemplu, pentru "the
+ cat is running", the are indicele 0 si cat are indicele 4.</li>
+			<li>Forma din dictionar</li>
+			<li>Partea de vorbire</li>
+		</ul>
+	</li><li>Pe un rand separat semnele de punctuatie (separate prin spatii) care au aparut in fraza</li>
+	<li>Afisarea analizei bazata pe gramatici de dependente.</li>
+</ol>
+<p>Nota: ideal ar fi sa uploadati si fisierele de input si output. </p>
+	<div class="punctaj"><p><b>Punctaj:0.7 </b></p>
+</div>
+				
+				<div style="background-color:#eae6f8 ; border: 1px dashed #67d3ea"></div></div></div></form></section></ol></section></main></body></html>

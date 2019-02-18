@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ro"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/stil.css">
+    <link rel="shortcut icon" type="image/x-icon" href="http://irinaciocan.ro/proces_lbnat/favicon.ico">
+	<!--<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />-->
+	<meta charset="UTF-8">
+	<meta name="author" content="Irina Ciocan">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/jquery-3.js"></script>          
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/modernizr-custom.js"></script> 
+	<!--[if lt IE 9]>	
+		<script type="text/javascript" src="/biblioteca/html5shiv.js"></script>
+	<![endif]-->
+		<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/functiile_mele.js"></script>
+	
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/cuprins.js"></script>
+
+
+<title>Laboratoare procesarea limbajului natural - 5, Introducere in Python</title>
+
+ 
+<script type="text/javascript">
+<!--
+
+
+//pentru cookie-uri
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+  {
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+
+
+
+function st_pag_menu()
+{
+var url_pag=document.URL;
+var ind_menu_pag=url_pag.lastIndexOf("/");// http://irinaciocan.ro... => index 19
+var menu_pag=url_pag.substr(ind_menu_pag+1,url_pag.length-ind_menu_pag-5);//5=.html
+//alert(menu_pag);
+var opt_meniu=document.getElementById(menu_pag);
+if(opt_meniu)
+	opt_meniu.style.color="black";
+}
+
+
+function pozitioneazaMeniu(offset) 
+		{
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var margine_sus=$("header.principal").outerHeight();
+			if ($window.scrollTop() > margine_sus) 
+			//if ($sidebar.scrollTop() > 0) 
+			{
+					//$sidebar.css("top", $window.scrollTop()); //- offset.top);
+					$sidebar.css("position","fixed");
+					$sidebar.css("top","0px");
+				
+			} 
+			else 
+			{
+					$sidebar.css("position","absolute");
+					$sidebar.css("top",margine_sus+"px");
+
+			}
+		}
+
+
+
+
+$(document).ready(
+	function()
+	{
+			//pozitioneazaMeniu();
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var offset_meniu = $sidebar.offset();
+			$(window).scroll(function(){
+				pozitioneazaMeniu(offset_meniu);
+			});	
+			$(".opt_meniu").attr("dataDeschis","inchis");
+			$(".opt_meniu").append("<img class='acces_submeniu' src='/imagini/triunghi_alb_mic_b_jos.png' alt=''>");
+			$(".opt_meniu").click(
+				function()
+				{
+					
+					//$plusulet=$(this).find("span.acces_submeniu");
+					//if($(".opt_meniu").attr("dataDeschis")=="inchis")
+					if($(this).attr("dataDeschis")=="inchis")
+					{
+						//$plusulet.text("-");
+						$elem_curent=$(this);
+						//$plusulet.text("+");
+						$(".opt_meniu").each(
+							function() {
+								if($(this)!=$elem_curent)
+								{
+									$(this).attr("dataDeschis","inchis");
+									$submeniu=$(this).next("ul");
+									$submeniu.css("display","none");
+									$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+								}
+							}
+						);
+						$(this).attr("dataDeschis","deschis");		
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","block");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_sus.png');
+					}
+					else
+					{
+
+
+						$(this).attr("dataDeschis","inchis");
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","none");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+
+					}
+
+				}
+			);
+	}
+);
+
+//daca ecranul e mai lat, expandeaza divurile in latime
+
+
+//-->
+</script>
+
+</head>
+<body onload="initial()">
+	<header class="principal">
+		<h1>Procesarea limbajului natural</h1>
+		<div id="nume_login">
+			<p class="alerta">Esti logat drept ionutcalofir</p><a class="link_login" href="http://irinaciocan.ro/proces_lbnat/logout.php">Iesi din cont</a><br>		</div>
+		<nav id="meniu_sus">
+			<ul class="meniu_principal">
+
+
+				<li>
+					<a id="index" href="http://irinaciocan.ro/proces_lbnat/index.php">Principal</a>
+				</li>
+				<li>
+					<a id="inregistrare" href="http://irinaciocan.ro/proces_lbnat/inregistrare.php">Profil</a>
+				</li>
+				<!--
+				<li>
+					<a style="color:red;" id="regulament" href="/proces_lbnat/regulament.php">Proiect HTML+CSS</a>
+					<button class="opt_meniu optiune_importanta" id="proiect_html">Proiect HTML+CSS</button>
+					<ul>
+						<li><a id="barem_proiect" href="/proces_lbnat/barem_proiect.php">Barem proiect</a></li>
+						<li><a id="proiect" href="/proces_lbnat/proiect.php">Realizare proiect</a></li>
+					</ul>
+				</li>
+				-->
+				<!--
+				<li>
+					<a id="barem_proiect" class="optiune_importanta" href="/proces_lbnat/barem_proiect.php">Barem proiect</a>
+				</li>
+				-->
+				<li>
+					<button class="opt_meniu" id="laboratoare" datadeschis="inchis">Laboratoare<img class="acces_submeniu" src="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/triunghi_alb_mic_b_jos.png" alt=""></button>
+					<ul>
+						<!--<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>-->
+						<li><a id="lab1" href="http://irinaciocan.ro/proces_lbnat/lab1.php">Laborator 1<br></a></li>
+						<li><a id="lab2" href="http://irinaciocan.ro/proces_lbnat/lab2.php">Laborator 2<br></a></li>
+						
+						<li><a id="lab3" href="http://irinaciocan.ro/proces_lbnat/lab3.php">Laborator 3<br></a></li>
+						<li><a id="lab4" href="http://irinaciocan.ro/proces_lbnat/lab4.php">Laborator 4<br></a></li>
+						
+						<li><a id="lab5" href="http://irinaciocan.ro/proces_lbnat/lab5.php" style="color: black;">Laborator 5<br></a></li>
+						
+						
+						<li><a id="lab6" href="http://irinaciocan.ro/proces_lbnat/lab6.php">Laborator 6<br></a></li>
+						<!--
+						<li><a id="lab7" href="/proces_lbnat/lab7.php">Laborator 7<br></a></li>
+						<li><a id="lab8" href="/proces_lbnat/lab8.php">Laborator 8<br></a></li>
+						<li><a id="lab9" href="/proces_lbnat/lab9.php">Laborator 9<br></a></li>
+						<li><a id="lab10" href="/proces_lbnat/lab10.php">Laborator 10<br></a></li>
+						<li><a id="lab11" href="/proces_lbnat/lab11.php">Laborator 11<br></a></li>
+						<li><a id="lab12" href="/proces_lbnat/lab12.php">Laborator 12<br></a></li>
+						-->
+					</ul>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">M.I.</button>
+					<ul>
+						<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>
+						<li><a id="mi_lab1" href="/proces_lbnat/mi_lab1.php">M.I. 1<br></a></li>
+						<li><a id="mi_lab2" href="/proces_lbnat/mi_lab2.php">M.I. 2<br></a></li>
+						<li><a id="mi_lab3" href="/proces_lbnat/mi_lab3.php">M.I. 3<br></a></li>
+						<li><a id="mi_lab4" href="/proces_lbnat/mi_lab4.php">M.I. 4<br></a></li>
+						<li><a id="mi_lab5" href="/proces_lbnat/mi_lab5.php">M.I. 5<br></a></li>
+						<li><a id="mi_lab6" href="/proces_lbnat/mi_lab6.php">M.I. 6<br></a></li>
+						<li><a id="mi_lab7" href="/proces_lbnat/mi_lab7.php">M.I. 7<br></a></li>
+						<li><a id="mi_lab8" href="/proces_lbnat/mi_lab8.php">M.I. 8<br></a></li>
+						<li><a id="mi_lab9" href="/proces_lbnat/mi_lab9.php">M.I. 9<br></a></li>
+						<li><a id="mi_lab10" href="/proces_lbnat/mi_lab10.php">M.I. 10<br></a></li>
+						<li><a id="mi_lab11" href="/proces_lbnat/mi_lab11.php">M.I. 11<br></a></li>
+						<li><a id="mi_lab12" href="/proces_lbnat/mi_lab12.php">M.I. 12<br></a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">M.I. mai simplu<br></a></li>
+						<li><a id="exercitii_recapitulative" href="/proces_lbnat/exercitii_recapitulative.php">M.I.recapitulativ<br></a></li>
+					</ul>
+				</li>
+-->
+				<li>
+					<a href="#">Note</a>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">Proiect JS</button>
+					<ul>
+
+						<li><a id="barem_proiect_js" href="/proces_lbnat/barem_proiect_js.php">Barem proiect JS<br></a></li>
+						<li><a id="teme_proiect_js" href="/proces_lbnat/teme_proiect_js.php">Teme proiect JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="mi">Test JS</button>
+					<ul>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Pregatire test JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="anexe">Anexe</button>
+					<ul>
+					<li>
+							<a id="model_test_css" href="/proces_lbnat/model_test_css.php">Model test CSS</a>
+					</li>
+					<!--
+						<li><a id="backup" href="/biblioteca/backup.php?folder=proces_lbnat">Backup<br></a></li>
+						<li><a id="debug" href="/proces_lbnat/debug.php">Debug<br></a></li>
+						<li>
+							<a id="exemplu_tema" href="/proces_lbnat/exemplu_tema.php">Exemplu tema</a>
+						</li>
+						<li>
+							<a id="modele_test_prolog" href="/proces_lbnat/modele_test_prolog.php">Model test 1</a>
+						</li>
+						<li>
+							<a id="modele_test_algoritmi" href="/proces_lbnat/modele_test_algoritmi.php">Model test 2</a>
+						</li>
+						<li>
+							<a id="interfata_grafica" href="/proces_lbnat/interfata_grafica.php">Interfata</a>
+						</li>
+						
+					</ul>
+					
+				</li>
+				
+				<li>
+					<button class="opt_meniu" id="proiecte">Proiecte si exercitii</button>
+					<ul>
+						<li><a id="proiecte" href="/proces_lbnat/proiecte.php">Proiecte JS</a></li>
+						<li><a id="exercitii_simple" href="/proces_lbnat/exercitii_simple.php">Exercitii simple</a></li>
+						<li><a id="exercitii_pregatire_examen" href="/proces_lbnat/exercitii_pregatire_examen.php">Exercitii-proiect</a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">Exercitii f. simple</a></li>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Test JS</a>
+						</li>
+					</ul>
+				</li>
+				-->	<!--
+
+	<li class="meniu_bord"><a id="seminar1" href="seminar1.php">Seminar 1</a></li>
+
+	<li  class="meniu_bord"><a id="bibliografie" href="bibliografie.php" style="color:red" title="pentru proiect!">Bibliografie</a></li>
+	<li><a id="exemplu_tema" href="exemplu_tema.php">Regulament teme</a></li>
+	<hr style="margin:0; padding:0; border:0; height:1px; color:grey; background-color:grey;"/>
+	<br/>-->
+
+			</ul>
+		</nav>
+	</header>
+<main>
+<h2>Laboratorul 5</h2>
+<h5 class="def" title="A trecut deadline-ul">(Deadline: 06.01.2019 23:59:59)</h5>
+<p style="font-style:italic;color:grey;">Daca nu sunteti logati exercitiile nu se mai afiseaza.</p>
+
+
+<!--
+https://docs.python.org/3/tutorial/modules.html
+executabile?
+-->
+
+
+<section>
+	<h3>NLTK - continuare</h3>
+	<section>
+		<h4>Analiza sintactica</h4>
+			<p><b>Analiza sintactica</b>(parsarea) se refera la analizarea textului pe baza unei gramatici formale (<i>formal grammar</i>). In cadrul laboratorului vom studia analiza bazata pe gramatici de constituenti si gramatici de dependente.</p>
+			<p>Vom folosi Stanford Parser. Putem folosi <a href="http://nlp.stanford.edu:8080/parser/index.jsp" target="_blank">varianta online</a>
+ pentru a vizualiza parsarea (se scrie fraza, se apasa pe butonul 
+"Parse" si in josul paginii (penultima sectiune) se va afisa lista de 
+dependente), dar daca dorim sa folosim parserul intr-o aplicatie, 
+trebuie sa il descarcam de la <a href="https://nlp.stanford.edu/software/lex-parser.html" target="_blank">https://nlp.stanford.edu/software/lex-parser.html</a> si sa il dezarhivam.</p>
+			<p>Pentru a folosi parserul descarcat, putem sa deschidem interfata 
+grafica cu lexparser-gui.bat dar in interfata grafica avem acces doar la
+ analiza bazata pe gramatici de constituenti.</p>
+
+			<section>
+				<h4>Analiza bazata pe gramatici de constituenti</h4>
+				<p>Arborele rezultat in urma parsarii propozitiei:
+				<span class="output">
+					I like to go to school.
+				</span>
+				este:<br>
+				<img src="Laboratoare%20procesarea%20limbajului%20natural%20-%205,%20Introducere%20in%20Python_files/arbore_sintactic_constituenti.png" alt="arbore sintactic" title="arbore sintactic">
+				</p>
+			</section>
+			<section>
+				<h4>Analiza bazata pe gramatici de dependente</h4>
+				<p><b>Gramaticile de dependente (Dependency Grammar, abreviat <abbr title="Dependency Grammar">DG</abbr>)</b>
+ sunt gramatici bazate pe relatii de dependenta intre cuvintele frazei. O
+ relatie de dependenta dintre doua cuvinte presupune existenta unui 
+cuvant (numit cap) si a unui cuvant dependent de el. In reprezentarea 
+vizuala, dependentele se deseneaza sub forma unei sageti de la cuvantul 
+cap la cuvantul dependent, scriind deasupra sagetii si tipulde 
+dependenta. Parserul de la Stanford afiseaza dependentele in format 
+text. De exemplu, pentru fraza "I like to go to school." relatiile de 
+dependenta sunt:
+				<samp class="output">
+				nsubj(like-2, I-1)<br>
+				nsubj:xsubj(go-4, I-1)<br>
+				root(ROOT-0, like-2)<br>
+				mark(go-4, to-3)<br>
+				xcomp(like-2, go-4)<br>
+				case(school-6, to-5)<br>
+				nmod:to(go-4, school-6)
+				</samp>
+				</p>
+				<p> Formatul unei legaturi este:
+				<samp class="output">
+				tip_dependenta(cuvant_cap - pozitie_in fraza, cuvant_dependent - pozitie_in_fraza)
+				</samp>
+				</p>
+				<p>Informatii sumare despre ce inseamna relatiile de dependenta se gasesc la <a href="https://nlp.stanford.edu/software/stanford-dependencies.html" target="_blank">https://nlp.stanford.edu/software/stanford-dependencies.html</a>. O lista cu semnificatiile abrevierilor pentru dependente se gaseste la <a href="http://universaldependencies.org/u/dep/" target="_blank">http://universaldependencies.org/u/dep/</a></p>
+				<p>Pentru a realiza analiza bazata pe relatii de dependenta, 
+folosind parserul de la Stanford, folosim command prompt. Schimbam 
+directorul pana ajungem in cel rezultat din arhiva downloadata de pe 
+site. Cautam jar-ul stanford-parser-versiune-models.jar ( de exemplu, 
+stanford-parser-3.9.2-models.jar ) si cu un program de dezarhivare ne 
+ducem la edu\stanford\nlp\models\lexparser\englishPCFG.ser.gz si copiem 
+fisierul din arhiva in folderul parserului.</p>
+				<p>Dam o comanda de forma:
+				<samp class="output">
+				java -mx200m -cp 
+"stanford-parser.jar;stanford-parser-3.9.2-models.jar" 
+edu.stanford.nlp.parser.lexparser.LexicalizedParser 
+-retainTMPSubcategories -outputFormat 
+"wordsAndTags,penn,typedDependencies" englishPCFG.ser.gz [fisier_input] 
+&gt; [fisier_output]
+				</samp>
+				</p>
+				<p>In cazul de fata, pentru parametru outputFormat am specificat:
+				</p><ul>
+					<li>wordsAndTags - afisarea cuvintelor cu specificarea partilor de vorbire</li>
+					<li>penn - analiza sintactica bazata pe constituenti cu afisarea arborescenta</li>
+					<li>typedDependencies - afisarea dependentelor</li>
+				</ul>
+				<p>In locul lui [fisier_input] se da calea catre fisierul text cu frazele ce se doresc a fi parsate.</p>
+				<p>Implicit rezultatul e afisat in consola, dar il putem redirecta 
+catre un fiser de output folosind simbolul "&gt;" si specificand calea 
+catre fiserul de output. De exemplu:
+				<samp class="output">				
+				java -mx200m -cp 
+"stanford-parser.jar;stanford-parser-3.9.2-models.jar" 
+edu.stanford.nlp.parser.lexparser.LexicalizedParser 
+-retainTMPSubcategories -outputFormat 
+"wordsAndTags,penn,typedDependencies" englishPCFG.ser.gz ../test.txt 
+&gt; ../out.txt
+				</samp>
+				unde ../test.txt este calea relativa catre fisierul cu textul de 
+parsat si ../out.txt fisierul catre care va fi redirectionat outputul.
+				</p>
+				<p>Pentu a vizualiza dependentele descarcam de la 
+https://nlp.stanford.edu/software/lex-parser.html din sectiunea de 
+extensii DependenSee. Punem fiserul jar in folderul parserului.Putem 
+testa functionalitatea printr-o comanda de forma:
+				<samp class="output">
+				java -cp 
+dependensee-3.7.0.jar;stanford-parser.jar;stanford-parser-3.9.2-models.jar;slf4j-api.jar
+ com.chaoticity.dependensee.Main [fraza de parsat] [cale fisier png de 
+output]
+				</samp>
+				de exemplu (este chiar exemplul de pe pagina DependenSee):
+				<samp class="output">
+				java -cp 
+"dependensee-3.7.0.jar;stanford-parser.jar;stanford-parser-3.9.2-models.jar;slf4j-api.jar"
+ com.chaoticity.dependensee.Main "Example isn't another way to teach, it
+ is the only way to teach." out.png
+				</samp>
+				</p><p><strong class="def">Atentie, comenzile sunt pentru windows. In cazul in care folositi unix, trebuie sa puneti separatorul <mark>:</mark> in loc de <mark>;</mark> in classpath.</strong>. In cazul in care aveti probleme cu slf4j-api.jar stergeti-l din classpath.</p>
+		</section>
+		<section>
+			<h4>Folosirea parserului de la Stanford in NLTK</h4>
+			<p>Pentru a realiza analiza sintactica bazata pe gramatici de constituenti:</p>
+			<samp class="output">
+import os<br>
+from nltk.parse.stanford import StanfordParser <br>
+<br>
+os.environ['JAVAHOME'] = "cale folder bin java"<br>
+os.environ['STANFORD_PARSER'] = 'cale relativa/absoluta jar parser'<br>
+os.environ['STANFORD_MODELS'] = 'cale relativa/absoluta jar modele'<br>
+<br>
+parser = StanfordParser(model_path="cale relativa/absoluta englishPCFG.ser.gz")<br>
+propozitii = parser.raw_parse_sents(("I like to go to school.", "The cat is running through the room.","Where are you?"))<br>
+for prop in propozitii:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(list(prop))
+			</samp>
+			<p>Pentru a realiza analiza sintactica bazata pe gramatici de dependente:</p>
+			<samp class="output">
+import os <br>
+from nltk.parse.stanford import StanfordDependencyParser<br>
+# se poate folosi si nltk.parse.corenlp.CoreNLPDependencyParser<br>
+<br>
+os.environ['JAVAHOME'] = "cale folder bin java"<br>
+cale_parser = 'cale relativa/absoluta jar parser'<br>
+cale_modele = 'cale relativa/absoluta jar modele'<br>
+<br>
+dependency_parser = StanfordDependencyParser(path_to_jar=cale_parser, path_to_models_jar=cale_modele)<br>
+<br>
+dependente = dependency_parser.raw_parse('I like to go to school.')<br>
+<br>
+for dep in dependente:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(list(dep.triples()))<br>
+			</samp>
+		</section>
+		</section>
+		<section>
+			<h4>Wordnet</h4>
+			<p>Wordnet este un dictionar semantic organizat pe <b>synsets</b> 
+(synonim rings). Un synset este un grup de sinonime si are asociat un id
+ si un sens (un cuvant poate sa apara in mai multe synsets daca 
+respectivul cuvant (sau colocatie) este polisemantic.) explicat printr-o
+ scurta glosa.</p>
+			<samp class="output">
+			&gt;&gt;&gt; from nltk.corpus import wordnet<br>
+&gt;&gt;&gt; wordnet.synsets('school')<br>
+[Synset('school.n.01'), Synset('school.n.02'), Synset('school.n.03'), 
+Synset('school.n.04'), Synset('school.n.05'), Synset('school.n.06'), 
+Synset('school.n.07'), Synset('school.v.01'), Synset('educate.v.03'), 
+Synset('school.v.03')]<br>
+<br>
+<br>
+<br>
+&gt;&gt;&gt; wordnet.synsets('schooled')<br>
+[Synset('school.v.01'), Synset('educate.v.03'), Synset('school.v.03')]<br>
+&gt;&gt;&gt; wordnet.synsets('cats')<br>
+[Synset('cat.n.01'), Synset('guy.n.01'), Synset('cat.n.03'), 
+Synset('kat.n.01'), Synset('cat-o'-nine-tails.n.01'), 
+Synset('caterpillar.n.02'), Synset('big_cat.n.01'), 
+Synset('computerized_tomography.n.01'), Synset('cat.v.01'), 
+Synset('vomit.v.01')]<br>
+<br>
+			</samp>
+			<p>Tipurile de relatii intre substantive sunt:
+			</p><ul>
+				<li>hiperonimie/hiponimie	
+				<samp class="output">
+				&gt;&gt;&gt; sch=wordnet.synset('school.n.01')<br>
+				<br>
+				<br>
+				&gt;&gt;&gt; sch.hyponyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('academy.n.03'), Synset('alma_mater.n.01'), 
+Synset('conservatory.n.01'), Synset('correspondence_school.n.01'), 
+Synset('crammer.n.03'), Synset('dance_school.n.01'), 
+Synset('dancing_school.n.01'), Synset('day_school.n.02'), 
+Synset('direct-grant_school.n.01'), Synset('driving_school.n.01'), 
+Synset('finishing_school.n.01'), Synset('flying_school.n.01'), 
+Synset('grade_school.n.01'), Synset('graduate_school.n.01'), 
+Synset('language_school.n.01'), Synset('night_school.n.01'), 
+Synset('nursing_school.n.01'), Synset('private_school.n.01'), 
+Synset('public_school.n.01'), Synset('religious_school.n.01'), 
+Synset('riding_school.n.01'), Synset('secondary_school.n.01'), 
+Synset('secretarial_school.n.01'), Synset('sunday_school.n.01'), 
+Synset('technical_school.n.01'), Synset('training_school.n.01'), 
+Synset('veterinary_school.n.01')]<br>
+&gt;&gt;&gt; sch.hypernyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('educational_institution.n.01')]<br>
+&gt;&gt;&gt; <br>
+				</samp>
+				</li>
+				<li>meronime/holonime care sunt de 3 feluri: "parte fizica din", "substanta din", "membru din".
+				<samp class="output">
+				&gt;&gt;&gt; aer=wordnet.synset('air.n.01')<br>
+				<br>
+				<br>
+				&gt;&gt;&gt; aer.substance_holonyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('wind.n.01')]<br>
+&gt;&gt;&gt; aer.substance_meronyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('argon.n.01'), Synset('krypton.n.01'), Synset('neon.n.01'), 
+Synset('nitrogen.n.01'), Synset('oxygen.n.01'), Synset('xenon.n.01')]<br>
+&gt;&gt;&gt; <br>
+<br>
+<br>
+<br>
+&gt;&gt;&gt; casa=wordnet.synset('house.n.01')<br>
+<br>
+<br>
+&gt;&gt;&gt; casa.part_holonyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[]<br>
+&gt;&gt;&gt; casa.part_meronyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('library.n.01'), Synset('loft.n.02'), Synset('porch.n.01'), Synset('study.n.05')]<br>
+&gt;&gt;&gt; <br>
+<br>
+<br>
+<br>
+<br>
+&gt;&gt;&gt; tree=wordnet.synset('tree.n.01')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt;&gt;&gt; tree.member_holonyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('forest.n.01')]<br>
+&gt;&gt;&gt; tree.member_meronyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[]<br>
+&gt;&gt;&gt; tree.part_meronyms()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+[Synset('burl.n.02'), Synset('crown.n.07'), Synset('limb.n.02'), Synset('stump.n.01'), Synset('trunk.n.01')]<br>
+&gt;&gt;&gt; <br>
+				</samp>
+				</li>
+			</ul>
+			<p>Similaritatea a doua synset-uri:
+			<samp class="output">
+&gt;&gt;&gt; tree=wordnet.synset('tree.n.01')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt;&gt;&gt; tree.path_similarity(wordnet.synset('plant.n.01'))<br>
+											<br>
+0.09090909090909091<br>
+&gt;&gt;&gt; tree.path_similarity(wordnet.synset('car.n.01'))<br>
+											<br>
+0.07142857142857142<br>
+&gt;&gt;&gt; tree.path_similarity(wordnet.synset('public_school.n.01'))<br>
+											<br>
+0.05555555555555555<br>
+</samp>
+			</p>
+		</section>
+
+
+
+<ol start="1" style="text-indent:0; font-weight:bold;"><section class="afis_exercitiu" style="text-indent:0px; padding-left:0px; margin-left:0px;font-weight:normal">
+				<form id="f30" action="/proces_lbnat/lab5.php" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="upload" id="upload" value="oac-oac">
+				<input type="hidden" name="upload_clasa" id="upload_clasa" value="laborator">
+				<input type="hidden" name="nr_clasa_up" id="nr_clasa_up" value="5">
+				<input type="hidden" name="student" id="student" value="ionutcalofir">
+
+				<div style="font-weight:normal">
+				<div class="exercitiu">
+				<b class="exercitiu_laborator">[Exercitiu laborator]</b><br>Identificator: <b>nltk_analiza_sintactica</b><br><p>Folositi
+ parserul de la Stanford. Scrieti o fraza in engleza ( fiecare student 
+va scrie o alta fraza).  Realizati parsarea - analiza sintactica bazata 
+pe constituenti). Uploadati imaginea rezultata (imaginea cu arborele).</p>
+<p>Folositi parserul in linia de comanda.  Scrieti fraza de mai sus.  
+Realizati parsarea scriind in fisierul de output doar analiza sintactica
+  in format text (atat bazata pe constituenti cat si pe dependente). 
+Fisierul de output nu ar trebui sa contina si alte informatii. Uploadati
+ fisierul. Folosind Dependensee vizualizati si arcele de dependenta pe 
+fraza introdusa. Uploadati imaginea rezultata.</p>
+<p>In final trebuie sa aveti 3 fisiere uploadate in cadrul acestui exercitiu: doua imagini si un fisier text.</p>
+<div class="punctaj"><p><b>Punctaj:0.3 </b></p>
+</div>
+				
+				<div style="background-color:#eae6f8 ; border: 1px dashed #67d3ea"></div></div></div></form></section></ol></section></main></body></html>

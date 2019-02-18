@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ro"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="Laboratoare%20procesarea%20limbajului%20natural%20-%203,%20Introducere%20in%20Python_files/stil.css">
+    <link rel="shortcut icon" type="image/x-icon" href="http://irinaciocan.ro/proces_lbnat/favicon.ico">
+	<!--<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />-->
+	<meta charset="UTF-8">
+	<meta name="author" content="Irina Ciocan">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%203,%20Introducere%20in%20Python_files/jquery-3.js"></script>          
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%203,%20Introducere%20in%20Python_files/modernizr-custom.js"></script> 
+	<!--[if lt IE 9]>	
+		<script type="text/javascript" src="/biblioteca/html5shiv.js"></script>
+	<![endif]-->
+		<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%203,%20Introducere%20in%20Python_files/functiile_mele.js"></script>
+	
+	<script type="text/javascript" src="Laboratoare%20procesarea%20limbajului%20natural%20-%203,%20Introducere%20in%20Python_files/cuprins.js"></script>
+
+
+<title>Laboratoare procesarea limbajului natural - 3, Introducere in Python</title>
+
+ 
+<script type="text/javascript">
+<!--
+
+
+//pentru cookie-uri
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+  {
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+
+
+
+function st_pag_menu()
+{
+var url_pag=document.URL;
+var ind_menu_pag=url_pag.lastIndexOf("/");// http://irinaciocan.ro... => index 19
+var menu_pag=url_pag.substr(ind_menu_pag+1,url_pag.length-ind_menu_pag-5);//5=.html
+//alert(menu_pag);
+var opt_meniu=document.getElementById(menu_pag);
+if(opt_meniu)
+	opt_meniu.style.color="black";
+}
+
+
+function pozitioneazaMeniu(offset) 
+		{
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var margine_sus=$("header.principal").outerHeight();
+			if ($window.scrollTop() > margine_sus) 
+			//if ($sidebar.scrollTop() > 0) 
+			{
+					//$sidebar.css("top", $window.scrollTop()); //- offset.top);
+					$sidebar.css("position","fixed");
+					$sidebar.css("top","0px");
+				
+			} 
+			else 
+			{
+					$sidebar.css("position","absolute");
+					$sidebar.css("top",margine_sus+"px");
+
+			}
+		}
+
+
+
+
+$(document).ready(
+	function()
+	{
+			//pozitioneazaMeniu();
+			var $sidebar   = $("nav#meniu_sus");
+			$window    = $(window);
+			var offset_meniu = $sidebar.offset();
+			$(window).scroll(function(){
+				pozitioneazaMeniu(offset_meniu);
+			});	
+			$(".opt_meniu").attr("dataDeschis","inchis");
+			$(".opt_meniu").append("<img class='acces_submeniu' src='/imagini/triunghi_alb_mic_b_jos.png' alt=''>");
+			$(".opt_meniu").click(
+				function()
+				{
+					
+					//$plusulet=$(this).find("span.acces_submeniu");
+					//if($(".opt_meniu").attr("dataDeschis")=="inchis")
+					if($(this).attr("dataDeschis")=="inchis")
+					{
+						//$plusulet.text("-");
+						$elem_curent=$(this);
+						//$plusulet.text("+");
+						$(".opt_meniu").each(
+							function() {
+								if($(this)!=$elem_curent)
+								{
+									$(this).attr("dataDeschis","inchis");
+									$submeniu=$(this).next("ul");
+									$submeniu.css("display","none");
+									$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+								}
+							}
+						);
+						$(this).attr("dataDeschis","deschis");		
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","block");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_sus.png');
+					}
+					else
+					{
+
+
+						$(this).attr("dataDeschis","inchis");
+						$submeniu=$(this).next("ul");
+						$submeniu.css("display","none");
+						$(this).find(".acces_submeniu").attr("src",'/imagini/triunghi_alb_mic_b_jos.png');
+
+					}
+
+				}
+			);
+	}
+);
+
+//daca ecranul e mai lat, expandeaza divurile in latime
+
+
+//-->
+</script>
+
+</head>
+<body onload="initial()">
+	<header class="principal">
+		<h1>Procesarea limbajului natural</h1>
+		<div id="nume_login">
+			<p class="alerta">Esti logat drept ionutcalofir</p><a class="link_login" href="http://irinaciocan.ro/proces_lbnat/logout.php">Iesi din cont</a><br>		</div>
+		<nav id="meniu_sus">
+			<ul class="meniu_principal">
+
+
+				<li>
+					<a id="index" href="http://irinaciocan.ro/proces_lbnat/index.php">Principal</a>
+				</li>
+				<li>
+					<a id="inregistrare" href="http://irinaciocan.ro/proces_lbnat/inregistrare.php">Profil</a>
+				</li>
+				<!--
+				<li>
+					<a style="color:red;" id="regulament" href="/proces_lbnat/regulament.php">Proiect HTML+CSS</a>
+					<button class="opt_meniu optiune_importanta" id="proiect_html">Proiect HTML+CSS</button>
+					<ul>
+						<li><a id="barem_proiect" href="/proces_lbnat/barem_proiect.php">Barem proiect</a></li>
+						<li><a id="proiect" href="/proces_lbnat/proiect.php">Realizare proiect</a></li>
+					</ul>
+				</li>
+				-->
+				<!--
+				<li>
+					<a id="barem_proiect" class="optiune_importanta" href="/proces_lbnat/barem_proiect.php">Barem proiect</a>
+				</li>
+				-->
+				<li>
+					<button class="opt_meniu" id="laboratoare" datadeschis="inchis">Laboratoare<img class="acces_submeniu" src="Laboratoare%20procesarea%20limbajului%20natural%20-%203,%20Introducere%20in%20Python_files/triunghi_alb_mic_b_jos.png" alt=""></button>
+					<ul>
+						<!--<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>-->
+						<li><a id="lab1" href="http://irinaciocan.ro/proces_lbnat/lab1.php">Laborator 1<br></a></li>
+						<li><a id="lab2" href="http://irinaciocan.ro/proces_lbnat/lab2.php">Laborator 2<br></a></li>
+						
+						<li><a id="lab3" href="http://irinaciocan.ro/proces_lbnat/lab3.php" style="color: black;">Laborator 3<br></a></li>
+						<li><a id="lab4" href="http://irinaciocan.ro/proces_lbnat/lab4.php">Laborator 4<br></a></li>
+						
+						<li><a id="lab5" href="http://irinaciocan.ro/proces_lbnat/lab5.php">Laborator 5<br></a></li>
+						
+						
+						<li><a id="lab6" href="http://irinaciocan.ro/proces_lbnat/lab6.php">Laborator 6<br></a></li>
+						<!--
+						<li><a id="lab7" href="/proces_lbnat/lab7.php">Laborator 7<br></a></li>
+						<li><a id="lab8" href="/proces_lbnat/lab8.php">Laborator 8<br></a></li>
+						<li><a id="lab9" href="/proces_lbnat/lab9.php">Laborator 9<br></a></li>
+						<li><a id="lab10" href="/proces_lbnat/lab10.php">Laborator 10<br></a></li>
+						<li><a id="lab11" href="/proces_lbnat/lab11.php">Laborator 11<br></a></li>
+						<li><a id="lab12" href="/proces_lbnat/lab12.php">Laborator 12<br></a></li>
+						-->
+					</ul>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">M.I.</button>
+					<ul>
+						<li><a id="lab0" href="/proces_lbnat/lab0.php">Laborator 0<br></a></li>
+						<li><a id="mi_lab1" href="/proces_lbnat/mi_lab1.php">M.I. 1<br></a></li>
+						<li><a id="mi_lab2" href="/proces_lbnat/mi_lab2.php">M.I. 2<br></a></li>
+						<li><a id="mi_lab3" href="/proces_lbnat/mi_lab3.php">M.I. 3<br></a></li>
+						<li><a id="mi_lab4" href="/proces_lbnat/mi_lab4.php">M.I. 4<br></a></li>
+						<li><a id="mi_lab5" href="/proces_lbnat/mi_lab5.php">M.I. 5<br></a></li>
+						<li><a id="mi_lab6" href="/proces_lbnat/mi_lab6.php">M.I. 6<br></a></li>
+						<li><a id="mi_lab7" href="/proces_lbnat/mi_lab7.php">M.I. 7<br></a></li>
+						<li><a id="mi_lab8" href="/proces_lbnat/mi_lab8.php">M.I. 8<br></a></li>
+						<li><a id="mi_lab9" href="/proces_lbnat/mi_lab9.php">M.I. 9<br></a></li>
+						<li><a id="mi_lab10" href="/proces_lbnat/mi_lab10.php">M.I. 10<br></a></li>
+						<li><a id="mi_lab11" href="/proces_lbnat/mi_lab11.php">M.I. 11<br></a></li>
+						<li><a id="mi_lab12" href="/proces_lbnat/mi_lab12.php">M.I. 12<br></a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">M.I. mai simplu<br></a></li>
+						<li><a id="exercitii_recapitulative" href="/proces_lbnat/exercitii_recapitulative.php">M.I.recapitulativ<br></a></li>
+					</ul>
+				</li>
+-->
+				<li>
+					<a href="#">Note</a>
+				</li>
+				<!--
+				<li>
+					<button class="opt_meniu" id="mi">Proiect JS</button>
+					<ul>
+
+						<li><a id="barem_proiect_js" href="/proces_lbnat/barem_proiect_js.php">Barem proiect JS<br></a></li>
+						<li><a id="teme_proiect_js" href="/proces_lbnat/teme_proiect_js.php">Teme proiect JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="mi">Test JS</button>
+					<ul>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Pregatire test JS<br></a></li>
+					</ul>
+				</li>
+				<li>
+					<button class="opt_meniu" id="anexe">Anexe</button>
+					<ul>
+					<li>
+							<a id="model_test_css" href="/proces_lbnat/model_test_css.php">Model test CSS</a>
+					</li>
+					<!--
+						<li><a id="backup" href="/biblioteca/backup.php?folder=proces_lbnat">Backup<br></a></li>
+						<li><a id="debug" href="/proces_lbnat/debug.php">Debug<br></a></li>
+						<li>
+							<a id="exemplu_tema" href="/proces_lbnat/exemplu_tema.php">Exemplu tema</a>
+						</li>
+						<li>
+							<a id="modele_test_prolog" href="/proces_lbnat/modele_test_prolog.php">Model test 1</a>
+						</li>
+						<li>
+							<a id="modele_test_algoritmi" href="/proces_lbnat/modele_test_algoritmi.php">Model test 2</a>
+						</li>
+						<li>
+							<a id="interfata_grafica" href="/proces_lbnat/interfata_grafica.php">Interfata</a>
+						</li>
+						
+					</ul>
+					
+				</li>
+				
+				<li>
+					<button class="opt_meniu" id="proiecte">Proiecte si exercitii</button>
+					<ul>
+						<li><a id="proiecte" href="/proces_lbnat/proiecte.php">Proiecte JS</a></li>
+						<li><a id="exercitii_simple" href="/proces_lbnat/exercitii_simple.php">Exercitii simple</a></li>
+						<li><a id="exercitii_pregatire_examen" href="/proces_lbnat/exercitii_pregatire_examen.php">Exercitii-proiect</a></li>
+						<li><a id="exercitii_foarte_simple" href="/proces_lbnat/exercitii_foarte_simple.php">Exercitii f. simple</a></li>
+						<li><a id="test_JS1" href="/proces_lbnat/test_JS1.php">Test JS</a>
+						</li>
+					</ul>
+				</li>
+				-->	<!--
+
+	<li class="meniu_bord"><a id="seminar1" href="seminar1.php">Seminar 1</a></li>
+
+	<li  class="meniu_bord"><a id="bibliografie" href="bibliografie.php" style="color:red" title="pentru proiect!">Bibliografie</a></li>
+	<li><a id="exemplu_tema" href="exemplu_tema.php">Regulament teme</a></li>
+	<hr style="margin:0; padding:0; border:0; height:1px; color:grey; background-color:grey;"/>
+	<br/>-->
+
+			</ul>
+		</nav>
+	</header>
+<main>
+<h2>Laboratorul 3</h2>
+<h5 class="def" title="A trecut deadline-ul">(Deadline: 09.12.2018 23:59:59)</h5>
+<p style="font-style:italic;color:grey;">Daca nu sunteti logati exercitiile nu se mai afiseaza.</p>
+
+
+<!--
+https://docs.python.org/3/tutorial/modules.html
+executabile?
+-->
+
+
+<section>
+	<h3>Module</h3>
+	<section>
+		<h4>Crearea modulelor proprii</h4>
+		<p>Orice program este de fapt un modul.</p>
+		<p>Un modul poate fi importat in alt program cu instructiunea
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		import nume_modul
+		</code>
+		</p><p>Din acest moment putem folosi clasele si functiile definite in modul.</p>
+		Putem importa si un singur element din modul:
+		<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		from nume_modul import element
+		</code>
+		<p>In momentul importarii unui modul, acesta se si executa. Putem 
+verifica daca se executa codul in cadrul modulului (si nu printr-un 
+import) testand:
+		<code>if __name__ = "__main__":</code>
+		</p>
+		
+	</section>
+</section>
+
+<section>
+	<h3>Clase</h3>
+	<!-- 
+	identif cls
+	-->
+	<p>Pentru a crea clase folosim cuvantul cheie class.</p>
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+	class Dreptunghi:<br>
+	</code>
+	<p>Constructorul este metoda __init__(). Ca si alte functii ce tin de 
+instanta, va primi ca parametru chiar obiectul curent. Rolul 
+constructorului e sa initializeze obiectul.</p>
+	<p>Pentru a accesa proprietati in interiorul metodelor de instanta (cum
+ e si constructorul) folosim identificatorul self. Atentie, aceasta e 
+doar o conventie, putem sa ii dam orice nume, insa pentru o intelegere 
+mai buna a codului folosim self. Acest lucru se intampla deoarece in 
+metodele de instanta primul parametru este mereu obiectul.</p>
+	<p>Tot o astfel de conventie avem si pentru metodele de clasa unde 
+folosim prin conventie identificatorul cls pentu parametrul care ar 
+trebui sa primeasca clasa.</p>
+	<p>Daca dorim sa stergem proprietati ale obiectelor sau chiar obiecte folosim <b><code>del</code></b>.</p>
+	
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+class Dreptunghi:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""O clasa care memoreaza un dreptunghi format din caractere"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#atribute de clasa (statice)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;liniiSeparatoare=True;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;simbolSeparator="-"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dimLinieSeparatoare=15<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, inaltime, latime, simbolContinut, simbolContur=None):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#atribute de instanta<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.inaltime = inaltime<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.latime = latime<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.simbolContinut = simbolContinut<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.simbolContur = "#" if simbolContur is None else simbolContur<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def arie(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.inaltime*self.latime;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@classmethod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def afisSimbolContur(cls):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('Simbol separator: '+ cls.simbolSeparator)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@classmethod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def afisNumeClasa(cls):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('Nume clasa:\n'+ cls.__name__)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@classmethod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def afisDoc(cls):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('Informatii clasa:\n'+ cls.__doc__)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@staticmethod<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def afisLinie(n,simbol):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(n*simbol)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#operatori<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __eq__(self, dr):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return (self.inaltime==dr.inaltime and self.latime==dr.latime)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#observati ca nu trebuie sa ne raportam la aceleasi criterii, chiar daca in general nu este indicat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __lt__(self, dr):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.arie()&lt;dr.arie()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __lte__(self, dr):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.arie()&lt;=dr.arie()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __gt__(self, dr):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.arie()&gt;dr.arie()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#definesc ce va returna repr(obiect)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __repr__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir="Prop clasa:\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (k,v) in self.__class__.__dict__.items() :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir+="{} = {}\n".format(k,v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir="Prop instanta:\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (k,v) in self.__dict__.items() :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir+="{} = {}\n".format(k,v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return(sir)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#definesc ce va returna str(obiect)&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __str__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir=self.simbolContur*self.latime+"\n";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(self.inaltime-2):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir+=self.simbolContur+self.simbolContinut*(self.latime-2)+self.simbolContur+"\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sir+=self.simbolContur*self.latime+"\n"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return(sir)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def afis(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (self.liniiSeparatoare):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.afisLinie(self.dimLinieSeparatoare,self.simbolSeparator)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(d)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (self.liniiSeparatoare):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.afisLinie(self.dimLinieSeparatoare,self.simbolSeparator)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<br>
+<br>
+class Secventa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;secventa=0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.secventa+=1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+class HartaJoc(Dreptunghi,Secventa):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;simbolObstacol="@"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;__matrice__=[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self,nume,inaltime, latime, simbolContinut, simbolContur=None):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dreptunghi.__init__(self,inaltime, latime, simbolContinut, simbolContur)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Secventa.__init__(self)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sirDr=str(self)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__matrice__=[[] for i in range(inaltime)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.nume=nume<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def afis(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (self.liniiSeparatoare):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.afisLinie(self.dimLinieSeparatoare,self.simbolSeparator)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for linie in __matrice__ :<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(linie.join())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (self.liniiSeparatoare):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.afisLinie(self.dimLinieSeparatoare,self.simbolSeparator)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+if __name__=="__main__":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;d1=Dreptunghi(5,10,'.')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Am creat dreptunghiul d1=Dreptunghi(5,10,'.')")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ce afiseaza print(d1)")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(d1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ce afiseaza print(str(d1))")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(str(d1))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ce afiseaza print(repr(d1))")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(repr(d1))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;d2=Dreptunghi(4,4,'.')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dreptunghi.afisSimbolContur()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dreptunghi.afisNumeClasa()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dreptunghi.afisDoc()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Am creat harta h=HartaJoc('campie',5,10,'.')")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;h=HartaJoc('campie',5,10,'.')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ce afiseaza print(h)")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(h)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;##########################################<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Ce afiseaza print(repr(h))")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(h)<br>
+
+	</code>
+	<p>Mostenirea claselor se face prin:
+	<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+		class ClasaDerivata(ClasaBaza):
+	</code>
+	
+</p></section>
+<section>
+	<h3>Functia dir()</h3>
+	<p>Functia dir() afiseaza toate proprietatile si metodele unui obiect. </p>
+	<samp class="output">
+	&gt;&gt;&gt; x=range(1,10)<br>
+&gt;&gt;&gt; x<br>
+range(1, 10)<br>
+&gt;&gt;&gt; dir(x)<br>
+['__class__', '__contains__', '__delattr__', '__dir__', '__doc__', 
+'__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', 
+'__gt__', '__hash__', '__init__', '__iter__', '__le__', '__len__', 
+'__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', 
+'__repr__', '__reversed__', '__setattr__', '__sizeof__', '__str__', 
+'__subclasshook__', 'count', 'index', 'start', 'step', 'stop']<br>
+&gt;&gt;&gt;
+
+</samp></section>
+
+
+
+<section>
+	<h3>Expresii regulate</h3>
+	<a href="https://docs.python.org/3/library/re.html" target="_blank">https://docs.python.org/3/library/re.html</a>
+</section>
+
+
+<section>
+	<h3>Fisiere si directoare (modulul os)</h3>
+	<a target="_blank" href="https://docs.python.org/2/library/os.html"> https://docs.python.org/2/library/os.html</a>
+</section>
+
+
+
+<section>
+	<h3>Modulul sys</h3>
+	<a target="_blank" href="https://docs.python.org/2/library/sys.html">https://docs.python.org/2/library/sys.html</a>
+</section>
+
+<section>
+	<h3>Modulul datetime</h3>
+	<a target="_blank" href="https://docs.python.org/3/library/datetime.html"> https://docs.python.org/3/library/datetime.html</a>
+</section>
+<ol start="1" style="text-indent:0; font-weight:bold;"><section class="afis_exercitiu" style="text-indent:0px; padding-left:0px; margin-left:0px;font-weight:normal">
+				<form id="f24" action="/proces_lbnat/lab3.php" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="upload" id="upload" value="oac-oac">
+				<input type="hidden" name="upload_clasa" id="upload_clasa" value="laborator">
+				<input type="hidden" name="nr_clasa_up" id="nr_clasa_up" value="3">
+				<input type="hidden" name="student" id="student" value="ionutcalofir">
+
+				<div style="font-weight:normal">
+				<div class="exercitiu">
+				<b class="exercitiu_laborator">[Exercitiu laborator]</b><br>Identificator: <b>python_modul_introductiv</b><br><p>Se considera un modul cu codul:</p>
+<hr class="despartitor"><button type="button" class="selecteaza_textul" onclick="selectText(this)">selecteaza textul</button><code class="cod">
+a=10<br>
+def f():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("ceva")<br>
+<br>
+print("Bine ati venit in acest modul!")
+</code>
+<p>Sa se modifice acest cod astfel incat afisarea cu "Bine ati venit" sa
+ se intample doar cand se ruleaza fisierul py, nu si cand e importat.</p>
+<p>Sa se modifice functia f astfel incat daca e apelata din modul sa 
+afiseze textul "in modul", altfel sa afiseze textul "din afara 
+modulului".</p><div class="punctaj"><p><b>Punctaj:0.2 </b></p>
+</div>
+				
+				<div style="background-color:#eae6f8 ; border: 1px dashed #67d3ea"></div></div></div></form></section></ol></main></body></html>
